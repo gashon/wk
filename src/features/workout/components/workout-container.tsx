@@ -1,11 +1,16 @@
 import { FC, useState } from "react";
 
-import { WorkoutForm } from ".";
+import { WorkoutForm, WorkoutList } from ".";
 import { Days } from "@/types";
 
 export const WorkoutContainer: FC = () => {
   // TODO(gashon) predict day based on prior day
   const [type, setType] = useState<Days>(Days.PUSH);
 
-  return <WorkoutForm type={type} />;
+  return (
+    <div>
+      <WorkoutForm type={type} />
+      <WorkoutList type={type} />
+    </div>
+  );
 };
