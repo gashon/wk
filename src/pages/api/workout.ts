@@ -4,7 +4,6 @@ import { v4 as uuid } from "uuid";
 import {
   Workout,
   WorkoutDeleteRequest,
-  WorkoutDeleteResponse,
   WorkoutGetRequest,
   WorkoutGetResponse,
   WorkoutPostRequest,
@@ -55,10 +54,10 @@ const handleGetRequest = async (
   const db = admin.firestore();
 
   const querySnapshot = await db
-    .doc("users")
-    .collection(tokenPayload.user_id)
-    .doc("workouts")
-    .collection(type)
+    .collection("users")
+    .doc(tokenPayload.user_id)
+    .collection("workouts")
+    .where("type", "==", type)
     .orderBy("created_at_timestamp", "desc")
     .get();
 
@@ -94,10 +93,9 @@ const handlePostRequest = async (
   };
 
   await db
-    .doc("users")
-    .collection(tokenPayload.user_id)
-    .doc("workouts")
-    .collection(type)
+    .collection("users")
+    .doc(tokenPayload.user_id)
+    .collection("workouts")
     .doc(data.id)
     .set(data);
 

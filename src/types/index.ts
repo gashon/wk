@@ -6,10 +6,10 @@ export type AnonToken = {
 type Resource = {
   id: string;
   created_at_timestamp: number;
-  created_at_date_string: number;
+  created_at_date_string: string;
 };
 
-enum Days {
+export enum Days {
   PUSH = "push",
   PULL = "pull",
   LEGS = "legs",
@@ -63,4 +63,12 @@ export type WorkoutGetRequest = Pick<Workout, "type">;
 export type WorkoutGetResponse = Response<Workout[]>;
 
 export type WorkoutDeleteRequest = Pick<Workout, "id" | "type">;
-export type WorkoutDeleteResponse = Response<Workout>;
+
+export type SnakeToCamelCase<S extends string> =
+  S extends `${infer T}_${infer U}`
+    ? `${T}${Capitalize<SnakeToCamelCase<U>>}`
+    : S;
+
+export type ConvertSnakeToCamelCase<T> = {
+  [K in keyof T as SnakeToCamelCase<K & string>]: T[K];
+};
