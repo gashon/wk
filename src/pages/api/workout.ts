@@ -94,7 +94,8 @@ const handlePostRequest = async (
     .collection(tokenPayload.user_id)
     .doc("workouts")
     .collection(type)
-    .add(data);
+    .doc(data.id)
+    .set(data);
 
   res.json({ data });
 };
