@@ -1,9 +1,10 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuid } from "uuid";
 
 import {
   Workout,
+  WorkoutDeleteRequest,
+  WorkoutDeleteResponse,
   WorkoutGetRequest,
   WorkoutGetResponse,
   WorkoutPostRequest,
@@ -29,6 +30,9 @@ export default function handler(
       break;
     case "POST":
       handlePostRequest(req, res);
+      break;
+    case "DELETE":
+      handleDeleteRequest(req, res);
       break;
     case "OPTIONS":
       res.status(200).end();
@@ -98,4 +102,34 @@ const handlePostRequest = async (
     .set(data);
 
   res.json({ data });
+};
+
+const handleDeleteRequest = async (
+  req: NextApiRequest,
+  res: NextApiResponse<{ message: string }>,
+) => {
+  const { tokenPayload } = attachOrRetrieveAnonToken(req, res);
+
+  const { id, type } = req.query as WorkoutDeleteRequest;
+
+  if (!id || !type) {
+    res.status(400).json({ message: "Missing id or type" });
+    return;
+  }
+
+  const db = admin.firestore();
+
+  try {
+    await db
+      .doc("users")
+      .collection(tokenPayload.user_id)
+      .doc("workouts")
+      .collection(type)
+      .doc(id)
+      .delete();
+
+    res.json({ message: "success" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error" });
+  }
 };

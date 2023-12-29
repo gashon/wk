@@ -57,9 +57,10 @@ export type WorkoutPostRequest = Pick<
   | "created_at_timestamp"
   | "created_at_date_string"
 >;
-
 export type WorkoutPostResponse = Response<Workout>;
 
 export type WorkoutGetRequest = Pick<Workout, "type">;
-
 export type WorkoutGetResponse = Response<Workout[]>;
+
+export type WorkoutDeleteRequest = Pick<Workout, "id" | "type">;
+export type WorkoutDeleteResponse = Response<Workout>;
