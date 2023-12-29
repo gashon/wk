@@ -59,3 +59,7 @@ export type WorkoutPostRequest = Pick<
 >;
 
 export type WorkoutPostResponse = Response<Workout>;
+
+export type WorkoutGetRequest = Pick<Workout, "type">;
+
+export type WorkoutGetResponse = Response<Workout[]>;

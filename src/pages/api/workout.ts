@@ -2,7 +2,13 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { v4 as uuid } from "uuid";
 
-import { Workout, WorkoutPostRequest, WorkoutPostResponse } from "@/types";
+import {
+  Workout,
+  WorkoutGetRequest,
+  WorkoutGetResponse,
+  WorkoutPostRequest,
+  WorkoutPostResponse,
+} from "@/types";
 import { attachOrRetrieveAnonToken } from "@/util/attach-jwt";
 import { admin } from "@/lib/firebase-admin";
 
@@ -10,13 +16,17 @@ type Response =
   | {
       message: string;
     }
-  | WorkoutPostResponse;
+  | WorkoutPostResponse
+  | WorkoutGetResponse;
 
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse<Response>,
 ) {
   switch (req.method) {
+    case "GET":
+      handleGetRequest(req, res);
+      break;
     case "POST":
       handlePostRequest(req, res);
       break;
@@ -28,6 +38,29 @@ export default function handler(
       return;
   }
 }
+
+const handleGetRequest = async (
+  req: NextApiRequest,
+  res: NextApiResponse<WorkoutGetResponse>,
+) => {
+  const { tokenPayload } = attachOrRetrieveAnonToken(req, res);
+
+  // TODO(gashon) support range queries
+  const { type } = req.query as WorkoutGetRequest;
+
+  const db = admin.firestore();
+
+  const querySnapshot = await db
+    .doc("users")
+    .collection(tokenPayload.user_id)
+    .doc("workouts")
+    .collection(type)
+    .orderBy("created_at_timestamp", "desc")
+    .get();
+
+  const documents = querySnapshot.docs.map((doc) => doc.data() as Workout);
+  res.json({ data: documents });
+};
 
 const handlePostRequest = async (
   req: NextApiRequest,
@@ -55,6 +88,7 @@ const handlePostRequest = async (
     repititions,
     weight,
   };
+
   await db
     .doc("users")
     .collection(tokenPayload.user_id)
