@@ -15,7 +15,7 @@ export enum Days {
   LEGS = "legs",
 }
 
-export const WorkoutLabel = {
+export const WorkoutLabels = {
   [Days.PUSH]: {
     BENCHPRESS: "Benchpress",
     INCLINE_DUMBELL_PRESS: "Incline Dumbell Press",

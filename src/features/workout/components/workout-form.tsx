@@ -1,8 +1,7 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { useForm, Resolver } from "react-hook-form";
 
-import { useCreateWorkout } from "@/features/workout";
-import { Days } from "@/types";
+import { DayContext, useCreateWorkout } from "@/features/workout";
 
 type FormValues = {
   label: string;
@@ -10,12 +9,9 @@ type FormValues = {
   repititions: number;
 };
 
-type Props = {
-  type: Days;
-};
-
-export const WorkoutForm: FC<Props> = ({ type }) => {
+export const WorkoutForm: FC = () => {
   const { register, handleSubmit, formState } = useForm<FormValues>();
+  const { type } = useContext(DayContext);
   const createWorkoutMutation = useCreateWorkout();
 
   const onSubmit = handleSubmit((data) =>

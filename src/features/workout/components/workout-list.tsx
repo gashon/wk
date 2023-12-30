@@ -1,12 +1,9 @@
-import { Days } from "@/types";
-import { FC } from "react";
-import { useGetWorkouts } from "..";
+import { FC, useContext } from "react";
 
-type Props = {
-  type: Days;
-};
+import { DayContext, useGetWorkouts } from "..";
 
-export const WorkoutList: FC<Props> = ({ type }) => {
+export const WorkoutList: FC = () => {
+  const { type } = useContext(DayContext);
   const { data, isFetching } = useGetWorkouts(type);
 
   if (isFetching) return <p>Loading...</p>;
