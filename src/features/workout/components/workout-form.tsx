@@ -37,6 +37,9 @@ const LabelDropDownMenu: FC<{
   setValue: UseFormSetValue<FormValues>;
 }> = ({ watch, getValues, setValue }) => {
   const { type } = useContext(DayContext);
+
+  //@ts-ignore
+  const entries = Object.entries(WorkoutLabels[type]);
   watch("label");
 
   return (
@@ -47,22 +50,30 @@ const LabelDropDownMenu: FC<{
         </DropdownMenuTrigger>
         <DropdownMenuContent className="cursor-pointer w-56 bg-white">
           <DropdownMenuLabel>Workout</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuRadioGroup
-            value={getValues().label}
-            onValueChange={(val) => setValue("label", val)}
-          >
-            {/* @ts-ignore */}
-            {(Object.values(WorkoutLabels[type]) as string[]).map((label) => (
-              <DropdownMenuRadioItem
-                key={`workout:label:${label}`}
-                value={label}
-                className="cursor-pointer"
-              >
-                <p>{label}</p>
-              </DropdownMenuRadioItem>
-            ))}
-          </DropdownMenuRadioGroup>
+
+          {entries.map(([muscle, exercises]) => {
+            return (
+              <>
+                <DropdownMenuSeparator />
+                <DropdownMenuLabel>{muscle}</DropdownMenuLabel>
+                <DropdownMenuRadioGroup
+                  value={getValues().label}
+                  onValueChange={(val) => setValue("label", val)}
+                >
+                  {/* @ts-ignore */}
+                  {(Object.values(exercises) as string[]).map((label) => (
+                    <DropdownMenuRadioItem
+                      key={`workout:label:${label}`}
+                      value={label}
+                      className="cursor-pointer"
+                    >
+                      <p>{label}</p>
+                    </DropdownMenuRadioItem>
+                  ))}
+                </DropdownMenuRadioGroup>
+              </>
+            );
+          })}
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
@@ -75,15 +86,17 @@ export const WorkoutForm: FC = () => {
   const { reset, watch, register, handleSubmit, setValue, getValues } =
     useForm<FormValues>({
       defaultValues: {
-        // @ts-ignore
-        label: Object.values(WorkoutLabels[type])[0] as string,
+        label: Object.values(
+          // @ts-ignore
+          Object.values(WorkoutLabels[type])[0],
+        )[0] as string,
       },
     });
 
   useEffect(() => {
     reset({
       // @ts-ignore
-      label: Object.values(WorkoutLabels[type])[0] as string,
+      label: Object.values(Object.values(WorkoutLabels[type])[0])[0] as string,
     });
   }, [type, reset]);
 

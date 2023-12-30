@@ -16,27 +16,66 @@ export enum Days {
   REST = "rest",
 }
 
-export const WorkoutLabels: Partial<Record<Days, Record<any, string>>> = {
+export const WorkoutLabels: Partial<
+  Record<Days, Record<string, Record<string, string>>>
+> = {
   [Days.PUSH]: {
-    BENCHPRESS: "benchpress",
-    INCLINE_DUMBELL_PRESS: "incline dumbell press",
-    SHOULDER_PRESS: "shoulder press",
-    TRICEP_DIP: "tricep dip",
-    OVERHEAD_TRICEP_EXTENSION: "overhead tricep extension",
+    chest: {
+      BENCHPRESS: "benchpress",
+      INCLINE_DUMBELL_PRESS: "incline dumbell press",
+      PEC_FLY: "pec fly",
+      PEC_DEC: "pec dec",
+      DUMBBELL_BENCH_PRESS: "dumbbell bench press",
+      DUMBBELL_FLY: "dumbbell fly",
+    },
+    shoulders: {
+      DUMBBELL_FRONT_RAISE: "dumbbell front raise",
+      SHOULDER_PRESS: "shoulder press",
+      DUMBBELL_LATERAL_RAISE: "dumbbell lateral raise",
+      DUMBBELL_SHOULDER_PRESS: "dumbbell shoulder press",
+    },
+    triceps: {
+      TRICEP_DIP: "tricep dip",
+      OVERHEAD_TRICEP_EXTENSION: "overhead tricep extension",
+      TRICEP_EXTENSION: "tricep extension",
+      TRICEP_KICKBACK: "tricep kickback",
+    },
   },
   [Days.PULL]: {
-    DEADLIFT: "deadlift",
-    PULL_UP: "pull up",
-    BENT_OVER_ROW: "bent over row",
-    FACE_PULL: "face pull",
-    HAMMER_CURL: "hammer curl",
+    back: {
+      DEADLIFT: "deadlift",
+      PULL_UP: "pull up",
+      BENT_OVER_ROW: "bent over row",
+      FACE_PULL: "face pull",
+      DUMBBELL_ROW: "dumbbell row",
+      LAT_PULLDOWN: "lat pulldown",
+      DUMBBELL_PULLOVER: "dumbbell pullover",
+    },
+    biceps: {
+      HAMMER_CURL: "hammer curl",
+      BICEP_CURL: "bicep curl",
+      DUMBBELL_CURL: "dumbbell curl",
+    },
+    traps: {
+      DUMBBELL_SHRUG: "dumbbell shrug",
+    },
   },
   [Days.LEGS]: {
-    SQUAT: "squat",
-    LEG_PRESS: "leg press",
-    LUNGES: "lunges",
-    LEG_EXTENSION: "leg extension",
-    CALF_RAISE: "calf raise",
+    quads: {
+      DUMBBELL_SQUAT: "dumbbell squat",
+      DUMBBELL_LUNGES: "dumbbell lunges",
+      DUMBBELL_STEP_UPS: "dumbbell step ups",
+      LEG_PRESS: "leg press",
+      LEG_EXTENSION: "leg extension",
+    },
+    hamstrings: {
+      DUMBBELL_DEADLIFT: "dumbbell deadlift",
+      LEG_CURL: "leg curl",
+    },
+    calves: {
+      DUMBBELL_CALF_RAISE: "dumbbell calf raise",
+      CALF_RAISE: "calf raise",
+    },
   },
 };
 
