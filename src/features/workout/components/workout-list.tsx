@@ -3,13 +3,14 @@ import { FC, useContext } from "react";
 import { DayContext, useDeleteWorkout, useGetWorkouts } from "..";
 import { Button } from "@/components/ui/button";
 import { groupBy } from "@/util/group-by";
+import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 
 export const WorkoutList: FC = () => {
   const { type } = useContext(DayContext);
   const { data, isFetching } = useGetWorkouts({ type });
   const deleteMutation = useDeleteWorkout(type);
 
-  if (isFetching) return <p>Loading...</p>;
+  if (isFetching) return <LoadingSkeleton />;
 
   if (!data) return <p>Failed</p>;
 

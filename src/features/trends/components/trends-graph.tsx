@@ -13,6 +13,7 @@ import { TrendContext } from "@/features/trends";
 import { DayContext, useGetWorkouts } from "@/features/workout";
 import { groupBy } from "@/util/group-by";
 import { getStartOfDay, getEndOfDay } from "@/util/date";
+import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 
 export const TrendsGraph: FC = () => {
   const { startRange, endRange } = useContext(TrendContext);
@@ -24,7 +25,7 @@ export const TrendsGraph: FC = () => {
     endRange: getEndOfDay(new Date(endRange)).getTime(),
   });
 
-  if (isFetching) return <p>Loading</p>;
+  if (isFetching) return <LoadingSkeleton />;
 
   if (!data) return <p>Error</p>;
 
