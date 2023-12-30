@@ -18,7 +18,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { DayContext, useCreateWorkout } from "@/features/workout";
+import {
+  DayContext,
+  DayDropDownMenu,
+  useCreateWorkout,
+} from "@/features/workout";
 import { WorkoutLabels } from "@/types";
 
 type FormValues = {
@@ -94,15 +98,24 @@ export const WorkoutForm: FC = () => {
   });
 
   return (
-    <form onSubmit={onSubmit} className="flex flex-col">
-      <LabelDropDownMenu
-        watch={watch}
-        getValues={getValues}
-        setValue={setValue}
-      />
-      <Input type="number" {...register("weight")} placeholder="weight" />
-      <Input type="number" {...register("repititions")} placeholder="reps" />
-      <Button type="submit">Add set</Button>
+    <form onSubmit={onSubmit} className="flex flex-col my-10">
+      <div className="flex flex-row justify-between mb-10">
+        <DayDropDownMenu />
+        <LabelDropDownMenu
+          watch={watch}
+          getValues={getValues}
+          setValue={setValue}
+        />
+      </div>
+      <div className="flex gap-2">
+        <Input type="number" {...register("weight")} placeholder="weight" />
+        <Input type="number" {...register("repititions")} placeholder="reps" />
+      </div>
+      <div className="w-full flex justify-end">
+        <Button type="submit" size={"lg"}>
+          Add set
+        </Button>
+      </div>
     </form>
   );
 };

@@ -9,7 +9,6 @@ export const WorkoutContainer: FC = () => {
 
   return (
     <DayContext.Provider value={{ type, setType }}>
-      <DayDropDownMenu />
       <WorkoutForm />
       <WorkoutList />
     </DayContext.Provider>
