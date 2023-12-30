@@ -2,6 +2,7 @@ import { FC, useContext } from "react";
 
 import { DayContext, useDeleteWorkout, useGetWorkouts } from "..";
 import { Button } from "@/components/ui/button";
+import { groupBy } from "@/util/group-by";
 
 export const WorkoutList: FC = () => {
   const { type } = useContext(DayContext);
@@ -11,23 +12,54 @@ export const WorkoutList: FC = () => {
   if (isFetching) return <p>Loading...</p>;
 
   if (!data) return <p>Failed</p>;
-  console.log("Data", data);
+
+  const groupedData = groupBy("created_at_date_string", data.data);
 
   return (
     <div>
-      {(data.data ?? []).map((workout) => {
+      {Object.entries(groupedData).map(([date, workouts]) => {
+        const workoutGroups = groupBy("label", workouts);
+
         return (
-          <li key={`workout:${workout.id}`} className="flex justify-between">
-            <p>
-              {workout.label} {workout.weight} {workout.repititions}
-            </p>
-            <Button
-              type="button"
-              onClick={() => deleteMutation.mutateAsync(workout.id)}
-            >
-              X
-            </Button>
-          </li>
+          <div
+            key={date}
+            className="border-black border-l border-opacity-30 pl-2 my-4"
+          >
+            <h3 className="underline mb-4">{date}</h3>
+            {Object.entries(workoutGroups).map(([label, groupWorkouts]) => (
+              <div
+                key={label}
+                className="ml-4 my-1 border-black border-l border-opacity-30 pl-2"
+              >
+                <h4 className="underline">{label}</h4>
+                <ul>
+                  {groupWorkouts.map((workout) => (
+                    <li
+                      key={`workout:${workout.id}`}
+                      className="flex justify-between "
+                    >
+                      <div className="flex justify-center items-center p-0 gap-1">
+                        <p>
+                          {workout.weight}
+                          <span className="opacity-50">lbs</span>{" "}
+                        </p>
+                        <p>
+                          {workout.repititions}
+                          <span className="opacity-50">reps</span>
+                        </p>
+                      </div>
+                      <Button
+                        type="button"
+                        onClick={() => deleteMutation.mutateAsync(workout.id)}
+                      >
+                        X
+                      </Button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         );
       })}
     </div>
