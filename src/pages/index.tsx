@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main className="w-full h-full flex justify-center py-10">
       <div className="w-11/12 lg:w-3/4">
-        <h1 className="text-2xl">Logs</h1>
+        <h1 className="text-2xl">wk logs</h1>
         <WorkoutContainer />
       </div>
     </main>
