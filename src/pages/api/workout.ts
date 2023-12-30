@@ -44,25 +44,51 @@ export default function handler(
 
 const handleGetRequest = async (
   req: NextApiRequest,
-  res: NextApiResponse<WorkoutGetResponse>,
+  res: NextApiResponse<WorkoutGetResponse | { message: string }>,
 ) => {
   const { tokenPayload } = attachOrRetrieveAnonToken(req, res);
 
   // TODO(gashon) support range queries
-  const { type } = req.query as WorkoutGetRequest;
+  const { type, start_timestamp, end_timestamp } =
+    req.query as Partial<WorkoutGetRequest>;
+
+  if (!type) {
+    res.json({
+      message: "type is required",
+    });
+    return;
+  }
 
   const db = admin.firestore();
 
-  const querySnapshot = await db
+  let query = db
     .collection("users")
     .doc(tokenPayload.user_id)
     .collection("workouts")
     .where("type", "==", type)
-    .orderBy("created_at_timestamp", "desc")
-    .get();
+    .orderBy("created_at_timestamp", "desc");
 
-  const documents = querySnapshot.docs.map((doc) => doc.data() as Workout);
-  res.json({ data: documents });
+  if (start_timestamp) {
+    query = query.where(
+      "created_at_timestamp",
+      ">=",
+      parseInt(start_timestamp),
+    );
+  }
+  if (end_timestamp) {
+    query = query.where("created_at_timestamp", "<=", parseInt(end_timestamp));
+  }
+
+  try {
+    const querySnapshot = await query.get();
+
+    const documents = querySnapshot.docs.map((doc) => doc.data() as Workout);
+
+    res.json({ data: documents });
+  } catch (err) {
+    console.log(err);
+    res.json({ message: "failed" });
+  }
 };
 
 const handlePostRequest = async (

@@ -12,10 +12,10 @@ const fetchData = async ({
   const params = new URLSearchParams({ type });
 
   if (start_timestamp !== undefined) {
-    params.append("start_timestamp", start_timestamp.toString());
+    params.append("start_timestamp", start_timestamp);
   }
   if (end_timestamp !== undefined) {
-    params.append("end_timestamp", end_timestamp.toString());
+    params.append("end_timestamp", end_timestamp);
   }
 
   url.search = params.toString();
@@ -46,6 +46,10 @@ export const useGetWorkouts = ({
   useQuery({
     queryKey: ["workouts", type],
     queryFn: (): ReturnType<typeof fetchData> =>
-      fetchData({ start_timestamp: startRange, end_timestamp: endRange, type }),
+      fetchData({
+        start_timestamp: startRange?.toString(),
+        end_timestamp: endRange?.toString(),
+        type,
+      }),
     refetchOnWindowFocus: false,
   });

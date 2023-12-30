@@ -12,6 +12,7 @@ import {
 import { TrendContext } from "@/features/trends";
 import { DayContext, useGetWorkouts } from "@/features/workout";
 import { groupBy } from "@/util/group-by";
+import { getStartOfDay, getEndOfDay } from "@/util/date";
 
 export const TrendsGraph: FC = () => {
   const { startRange, endRange } = useContext(TrendContext);
@@ -19,8 +20,8 @@ export const TrendsGraph: FC = () => {
 
   const { data, isFetching } = useGetWorkouts({
     type,
-    startRange: new Date(startRange).getTime(),
-    endRange: new Date(endRange).getTime(),
+    startRange: getStartOfDay(new Date(startRange)).getTime(),
+    endRange: getEndOfDay(new Date(endRange)).getTime(),
   });
 
   if (isFetching) return <p>Loading</p>;
@@ -50,8 +51,6 @@ export const TrendsGraph: FC = () => {
       return [label, averaged];
     }),
   );
-
-  console.log("av", averagedData);
 
   return (
     <>

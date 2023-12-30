@@ -60,10 +60,12 @@ export type WorkoutPostRequest = Pick<
 >;
 export type WorkoutPostResponse = Response<Workout>;
 
-export type WorkoutGetRequest = Pick<Workout, "type"> & {
-  start_timestamp?: number;
-  end_timestamp?: number;
-};
+export type WorkoutGetRequest = Partial<{
+  start_timestamp: string;
+  end_timestamp: string;
+}> &
+  Pick<Workout, "type">;
+
 export type WorkoutGetResponse = Response<Workout[]>;
 
 export type WorkoutDeleteRequest = Pick<Workout, "id">;
