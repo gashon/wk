@@ -22,7 +22,7 @@ const fetchData = async ({
 
 export const useGetWorkouts = (type: Days) =>
   useQuery({
-    queryKey: ["workouts"],
+    queryKey: ["workouts", type],
     queryFn: (): ReturnType<typeof fetchData> => fetchData({ type }),
     refetchOnWindowFocus: false,
   });
