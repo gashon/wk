@@ -16,7 +16,7 @@ export enum Days {
   REST = "rest",
 }
 
-export const WorkoutLabels = {
+export const WorkoutLabels: Partial<Record<Days, Record<any, string>>> = {
   [Days.PUSH]: {
     BENCHPRESS: "benchpress",
     INCLINE_DUMBELL_PRESS: "incline dumbell press",

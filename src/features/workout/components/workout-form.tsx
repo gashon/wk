@@ -52,6 +52,7 @@ const LabelDropDownMenu: FC<{
             value={getValues().label}
             onValueChange={(val) => setValue("label", val)}
           >
+            {/* @ts-ignore */}
             {(Object.values(WorkoutLabels[type]) as string[]).map((label) => (
               <DropdownMenuRadioItem
                 key={`workout:label:${label}`}
@@ -74,12 +75,14 @@ export const WorkoutForm: FC = () => {
   const { reset, watch, register, handleSubmit, setValue, getValues } =
     useForm<FormValues>({
       defaultValues: {
+        // @ts-ignore
         label: Object.values(WorkoutLabels[type])[0] as string,
       },
     });
 
   useEffect(() => {
     reset({
+      // @ts-ignore
       label: Object.values(WorkoutLabels[type])[0] as string,
     });
   }, [type, reset]);

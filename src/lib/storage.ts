@@ -14,13 +14,13 @@ type Storage = {
   exists(key: string): boolean | null;
   getMeta(key: string): Omit<StorageDocument<any>, "data"> | null;
   getKey(key: string): string;
-  isMounted(): boolean;
+  isStorageMounted(): boolean;
   isAvailable(): boolean;
 };
 
 const storage: Storage = {
   get<T>(key: string): T | null {
-    if (!this.isMounted()) return null;
+    if (!this.isStorageMounted()) return null;
 
     const item = localStorage.getItem(this.getKey(key));
     const doc: StorageDocument<T> = item ? JSON.parse(item) : null;
@@ -33,7 +33,7 @@ const storage: Storage = {
     return doc ? doc.data : null;
   },
   set<T>(key: string, value: T, expires_at?: Date): void {
-    if (!this.isMounted()) return;
+    if (!this.isStorageMounted()) return;
 
     const prev = this.getMeta(key);
 
@@ -47,12 +47,12 @@ const storage: Storage = {
     localStorage.setItem(this.getKey(key), JSON.stringify(doc));
   },
   remove(key: string): void {
-    if (!this.isMounted()) return;
+    if (!this.isStorageMounted()) return;
 
     localStorage.removeItem(this.getKey(key));
   },
   exists(key: string): boolean | null {
-    if (!this.isMounted()) return null;
+    if (!this.isStorageMounted()) return null;
 
     return !!localStorage.getItem(this.getKey(key));
   },
@@ -67,7 +67,7 @@ const storage: Storage = {
 
     return doc as Omit<StorageDocument<any>, "data"> | null;
   },
-  isMounted(): boolean {
+  isStorageMounted(): boolean {
     return typeof window !== "undefined";
   },
   isAvailable(): boolean {
