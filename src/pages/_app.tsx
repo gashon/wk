@@ -13,6 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
         endpoint="https://analytics-fawn-nine.vercel.app/api/analytics"
         trackSession
         trackClickEvents
+        disableOnDev
       />
       <Component {...pageProps} />
     </QueryClientProvider>

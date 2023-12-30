@@ -43,12 +43,12 @@ const LabelDropDownMenu: FC<{
   watch("label");
 
   return (
-    <div className="cursor-pointer">
+    <div className="cursor-pointer h-full">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button variant="outline">{getValues().label}</Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="cursor-pointer w-56 bg-white">
+        <DropdownMenuContent className="cursor-pointer w-56 bg-white overflow-y-auto max-h-80">
           <DropdownMenuLabel>Workout</DropdownMenuLabel>
 
           {entries.map(([muscle, exercises]) => {
