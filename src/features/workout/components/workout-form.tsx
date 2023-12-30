@@ -31,6 +31,50 @@ type FormValues = {
   repititions: number;
 };
 
+const resolver: Resolver<FormValues> = async (values: FormValues) => {
+  let errors = {};
+  if (!values.label) {
+    errors = {
+      ...errors,
+      label: { message: "label is required", type: "required" },
+    };
+  }
+
+  // @ts-ignore
+  if (values.weight == "" || isNaN(values.weight)) {
+    errors = {
+      ...errors,
+      weight: { message: "weight must be a number", type: "typeError" },
+    };
+  } else if (!values.weight) {
+    errors = {
+      ...errors,
+      weight: { message: "weight is required", type: "required" },
+    };
+  }
+
+  // @ts-ignore
+  if (values.repititions == "" || isNaN(values.repititions)) {
+    errors = {
+      ...errors,
+      repititions: {
+        message: "repetitions must be a number",
+        type: "typeError",
+      },
+    };
+  } else if (!values.repititions) {
+    errors = {
+      ...errors,
+      repititions: { message: "repetitions is required", type: "required" },
+    };
+  }
+
+  return {
+    values: Object.keys(errors).length === 0 ? values : {},
+    errors: errors,
+  };
+};
+
 const LabelDropDownMenu: FC<{
   watch: UseFormWatch<FormValues>;
   getValues: UseFormGetValues<FormValues>;
@@ -83,15 +127,23 @@ const LabelDropDownMenu: FC<{
 export const WorkoutForm: FC = () => {
   const { type } = useContext(DayContext);
 
-  const { reset, watch, register, handleSubmit, setValue, getValues } =
-    useForm<FormValues>({
-      defaultValues: {
-        label: Object.values(
-          // @ts-ignore
-          Object.values(WorkoutLabels[type])[0],
-        )[0] as string,
-      },
-    });
+  const {
+    formState: { errors },
+    reset,
+    watch,
+    register,
+    handleSubmit,
+    setValue,
+    getValues,
+  } = useForm<FormValues>({
+    resolver,
+    defaultValues: {
+      label: Object.values(
+        // @ts-ignore
+        Object.values(WorkoutLabels[type])[0],
+      )[0] as string,
+    },
+  });
 
   useEffect(() => {
     reset({
@@ -113,20 +165,36 @@ export const WorkoutForm: FC = () => {
       setValue("repititions", "");
   });
 
+  console.log("err", errors);
   return (
     <form onSubmit={onSubmit} className="flex flex-col my-10">
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-2 justify-between ">
-          <Input type="number" {...register("weight")} placeholder="weight" />
+          <div className="flex flex-col w-full">
+            <Input type="number" {...register("weight")} placeholder="weight" />
+            {errors.weight && (
+              <p className="text-red-800 opacity-75 text-sm ">
+                {errors.weight.message}
+              </p>
+            )}
+          </div>
           <DayDropDownMenu />
         </div>
 
         <div className="flex flex-row gap-2 justify-between">
-          <Input
-            type="number"
-            {...register("repititions")}
-            placeholder="reps"
-          />
+          <div className="flex flex-col w-full">
+            <Input
+              type="number"
+              {...register("repititions")}
+              placeholder="reps"
+            />
+            {errors.repititions && (
+              <p className="text-red-800 opacity-75 text-sm ">
+                {errors.repititions.message}
+              </p>
+            )}
+          </div>
+
           <LabelDropDownMenu
             watch={watch}
             getValues={getValues}
@@ -135,8 +203,13 @@ export const WorkoutForm: FC = () => {
         </div>
       </div>
       <div className="w-full flex justify-end mt-5">
-        <Button type="submit" size={"lg"} className="px-0">
-          Add set
+        <Button
+          disabled={createWorkoutMutation.isPending}
+          type="submit"
+          size={"lg"}
+          className="px-0"
+        >
+          {createWorkoutMutation.isPending ? "Loading..." : "Add set"}
         </Button>
       </div>
     </form>
