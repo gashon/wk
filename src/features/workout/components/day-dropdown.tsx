@@ -21,8 +21,8 @@ export const DayDropDownMenu: FC = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="outline">{type}</Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
+      <DropdownMenuContent className="opacity-100 bg-white w-full">
+        <DropdownMenuLabel>Day Selection</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
           value={type}

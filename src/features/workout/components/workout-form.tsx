@@ -45,20 +45,20 @@ const LabelDropDownMenu: FC<{
         <DropdownMenuTrigger asChild>
           <Button variant="outline">{getValues().label}</Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="cursor-pointer w-56">
+        <DropdownMenuContent className="cursor-pointer w-56 bg-white">
           <DropdownMenuLabel>Workout</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuRadioGroup
             value={getValues().label}
             onValueChange={(val) => setValue("label", val)}
           >
-            {Object.values(WorkoutLabels[type]).map((label) => (
+            {(Object.values(WorkoutLabels[type]) as string[]).map((label) => (
               <DropdownMenuRadioItem
                 key={`workout:label:${label}`}
                 value={label}
                 className="cursor-pointer"
               >
-                {label}
+                <p>{label}</p>
               </DropdownMenuRadioItem>
             ))}
           </DropdownMenuRadioGroup>
@@ -99,20 +99,27 @@ export const WorkoutForm: FC = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col my-10">
-      <div className="flex flex-row justify-between mb-10">
-        <DayDropDownMenu />
-        <LabelDropDownMenu
-          watch={watch}
-          getValues={getValues}
-          setValue={setValue}
-        />
+      <div className="flex flex-col gap-2">
+        <div className="flex flex-row gap-2 justify-between ">
+          <Input type="number" {...register("weight")} placeholder="weight" />
+          <DayDropDownMenu />
+        </div>
+
+        <div className="flex flex-row gap-2 justify-between">
+          <Input
+            type="number"
+            {...register("repititions")}
+            placeholder="reps"
+          />
+          <LabelDropDownMenu
+            watch={watch}
+            getValues={getValues}
+            setValue={setValue}
+          />
+        </div>
       </div>
-      <div className="flex gap-2">
-        <Input type="number" {...register("weight")} placeholder="weight" />
-        <Input type="number" {...register("repititions")} placeholder="reps" />
-      </div>
-      <div className="w-full flex justify-end">
-        <Button type="submit" size={"lg"}>
+      <div className="w-full flex justify-end mt-5">
+        <Button type="submit" size={"lg"} className="px-0">
           Add set
         </Button>
       </div>
