@@ -17,25 +17,25 @@ export enum Days {
 
 export const WorkoutLabels = {
   [Days.PUSH]: {
-    BENCHPRESS: "Benchpress",
-    INCLINE_DUMBELL_PRESS: "Incline Dumbell Press",
-    SHOULDER_PRESS: "Shoulder Press",
-    TRICEP_DIP: "Tricep Dip",
-    OVERHEAD_TRICEP_EXTENSION: "Overhead Tricep Extension",
+    BENCHPRESS: "benchpress",
+    INCLINE_DUMBELL_PRESS: "incline dumbell press",
+    SHOULDER_PRESS: "shoulder press",
+    TRICEP_DIP: "tricep dip",
+    OVERHEAD_TRICEP_EXTENSION: "overhead tricep extension",
   },
   [Days.PULL]: {
-    DEADLIFT: "Deadlift",
-    PULL_UP: "Pull Up",
-    BENT_OVER_ROW: "Bent Over Row",
-    FACE_PULL: "Face Pull",
-    HAMMER_CURL: "Hammer Curl",
+    DEADLIFT: "deadlift",
+    PULL_UP: "pull up",
+    BENT_OVER_ROW: "bent over row",
+    FACE_PULL: "face pull",
+    HAMMER_CURL: "hammer curl",
   },
   [Days.LEGS]: {
-    SQUAT: "Squat",
-    LEG_PRESS: "Leg Press",
-    LUNGES: "Lunges",
-    LEG_EXTENSION: "Leg Extension",
-    CALF_RAISE: "Calf Raise",
+    SQUAT: "squat",
+    LEG_PRESS: "leg press",
+    LUNGES: "lunges",
+    LEG_EXTENSION: "leg extension",
+    CALF_RAISE: "calf raise",
   },
 };
 
@@ -62,7 +62,7 @@ export type WorkoutPostResponse = Response<Workout>;
 export type WorkoutGetRequest = Pick<Workout, "type">;
 export type WorkoutGetResponse = Response<Workout[]>;
 
-export type WorkoutDeleteRequest = Pick<Workout, "id" | "type">;
+export type WorkoutDeleteRequest = Pick<Workout, "id">;
 
 export type SnakeToCamelCase<S extends string> =
   S extends `${infer T}_${infer U}`

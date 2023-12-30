@@ -89,6 +89,7 @@ export const WorkoutForm: FC = () => {
       created_at_date_string: new Date().toLocaleDateString(),
       created_at_timestamp: new Date().getTime(),
     }),
+      //@ts-ignore
       setValue("repititions", "");
   });
 
@@ -101,7 +102,7 @@ export const WorkoutForm: FC = () => {
       />
       <Input type="number" {...register("weight")} placeholder="weight" />
       <Input type="number" {...register("repititions")} placeholder="reps" />
-      <button type="submit">Add set</button>
+      <Button type="submit">Add set</Button>
     </form>
   );
 };

@@ -108,9 +108,9 @@ const handleDeleteRequest = async (
 ) => {
   const { tokenPayload } = attachOrRetrieveAnonToken(req, res);
 
-  const { id, type } = req.query as WorkoutDeleteRequest;
+  const { id } = req.query as WorkoutDeleteRequest;
 
-  if (!id || !type) {
+  if (!id) {
     res.status(400).json({ message: "Missing id or type" });
     return;
   }
@@ -119,10 +119,9 @@ const handleDeleteRequest = async (
 
   try {
     await db
-      .doc("users")
-      .collection(tokenPayload.user_id)
-      .doc("workouts")
-      .collection(type)
+      .collection("users")
+      .doc(tokenPayload.user_id)
+      .collection("workouts")
       .doc(id)
       .delete();
 
