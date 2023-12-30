@@ -62,6 +62,8 @@ export const WorkoutLabels: Partial<
   },
   [Days.LEGS]: {
     quads: {
+      BULGARIAN_SPLIT_SQUAT: "bulgarian split squat",
+      GOBLET_SQUAT: "goblet squat",
       DUMBBELL_SQUAT: "dumbbell squat",
       DUMBBELL_LUNGES: "dumbbell lunges",
       DUMBBELL_STEP_UPS: "dumbbell step ups",
