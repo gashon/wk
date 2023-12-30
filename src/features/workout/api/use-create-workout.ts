@@ -16,6 +16,7 @@ const fetchMutation = async (
     method: "POST",
     mode: "same-origin",
     credentials: "include",
+    keepalive: true,
     headers: {
       "Content-Type": "application/json",
     },
