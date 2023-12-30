@@ -13,6 +13,7 @@ export enum Days {
   PUSH = "push",
   PULL = "pull",
   LEGS = "legs",
+  REST = "rest",
 }
 
 export const WorkoutLabels = {
@@ -71,4 +72,9 @@ export type SnakeToCamelCase<S extends string> =
 
 export type ConvertSnakeToCamelCase<T> = {
   [K in keyof T as SnakeToCamelCase<K & string>]: T[K];
+};
+
+export type StorageDayAndTime = {
+  timestamp: string;
+  workout: Days;
 };
