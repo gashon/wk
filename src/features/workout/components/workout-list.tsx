@@ -6,7 +6,7 @@ import { groupBy } from "@/util/group-by";
 
 export const WorkoutList: FC = () => {
   const { type } = useContext(DayContext);
-  const { data, isFetching } = useGetWorkouts(type);
+  const { data, isFetching } = useGetWorkouts({ type });
   const deleteMutation = useDeleteWorkout(type);
 
   if (isFetching) return <p>Loading...</p>;

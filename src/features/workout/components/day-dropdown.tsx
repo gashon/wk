@@ -21,7 +21,7 @@ export const DayDropDownMenu: FC = () => {
       <DropdownMenuTrigger asChild>
         <Button variant="outline">{type}</Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="opacity-100 bg-white w-full">
+      <DropdownMenuContent className="opacity-100 bg-white w-full cursor-pointer">
         <DropdownMenuLabel>Day Selection</DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuRadioGroup
@@ -29,7 +29,11 @@ export const DayDropDownMenu: FC = () => {
           onValueChange={(val) => setType(val as Days)}
         >
           {Object.keys(WorkoutLabels).map((label) => (
-            <DropdownMenuRadioItem key={`workout:label:${label}`} value={label}>
+            <DropdownMenuRadioItem
+              key={`workout:label:${label}`}
+              value={label}
+              className="cursor-pointer"
+            >
               {label}
             </DropdownMenuRadioItem>
           ))}
