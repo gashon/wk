@@ -17,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Input } from "@/components/ui/input";
 import { DayContext, useCreateWorkout } from "@/features/workout";
 import { WorkoutLabels } from "@/types";
 
@@ -35,44 +36,43 @@ const LabelDropDownMenu: FC<{
   watch("label");
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">{getValues().label}</Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56">
-        <DropdownMenuLabel>Panel Position</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup
-          value={getValues().label}
-          onValueChange={(val) => setValue("label", val)}
-        >
-          {Object.values(WorkoutLabels[type]).map((label) => (
-            <DropdownMenuRadioItem key={`workout:label:${label}`} value={label}>
-              {label}
-            </DropdownMenuRadioItem>
-          ))}
-        </DropdownMenuRadioGroup>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <div className="cursor-pointer">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="outline">{getValues().label}</Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent className="cursor-pointer w-56">
+          <DropdownMenuLabel>Workout</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuRadioGroup
+            value={getValues().label}
+            onValueChange={(val) => setValue("label", val)}
+          >
+            {Object.values(WorkoutLabels[type]).map((label) => (
+              <DropdownMenuRadioItem
+                key={`workout:label:${label}`}
+                value={label}
+                className="cursor-pointer"
+              >
+                {label}
+              </DropdownMenuRadioItem>
+            ))}
+          </DropdownMenuRadioGroup>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 };
 
 export const WorkoutForm: FC = () => {
   const { type } = useContext(DayContext);
 
-  const {
-    reset,
-    watch,
-    register,
-    handleSubmit,
-    setValue,
-    formState,
-    getValues,
-  } = useForm<FormValues>({
-    defaultValues: {
-      label: Object.values(WorkoutLabels[type])[0] as string,
-    },
-  });
+  const { reset, watch, register, handleSubmit, setValue, getValues } =
+    useForm<FormValues>({
+      defaultValues: {
+        label: Object.values(WorkoutLabels[type])[0] as string,
+      },
+    });
 
   useEffect(() => {
     reset({
@@ -80,16 +80,17 @@ export const WorkoutForm: FC = () => {
     });
   }, [type, reset]);
 
-  const createWorkoutMutation = useCreateWorkout();
+  const createWorkoutMutation = useCreateWorkout(type);
 
-  const onSubmit = handleSubmit((data) =>
-    createWorkoutMutation.mutateAsync({
+  const onSubmit = handleSubmit(async (data) => {
+    await createWorkoutMutation.mutateAsync({
       ...data,
       type,
       created_at_date_string: new Date().toLocaleDateString(),
       created_at_timestamp: new Date().getTime(),
     }),
-  );
+      setValue("repititions", "");
+  });
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col">
@@ -98,8 +99,8 @@ export const WorkoutForm: FC = () => {
         getValues={getValues}
         setValue={setValue}
       />
-      <input type="number" {...register("weight")} placeholder="weight" />
-      <input type="number" {...register("repititions")} placeholder="reps" />
+      <Input type="number" {...register("weight")} placeholder="weight" />
+      <Input type="number" {...register("repititions")} placeholder="reps" />
       <button type="submit">Add set</button>
     </form>
   );
