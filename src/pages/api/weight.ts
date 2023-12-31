@@ -48,6 +48,9 @@ const handleGetRequest = async (
 ) => {
   const { tokenPayload } = attachOrRetrieveAnonToken(req, res);
 
+  const { start_timestamp, end_timestamp } =
+    req.query as Partial<WeightGetRequest>;
+
   const db = admin.firestore();
 
   let query = db
@@ -55,6 +58,17 @@ const handleGetRequest = async (
     .doc(tokenPayload.user_id)
     .collection("bodyWeights")
     .orderBy("created_at_timestamp", "desc");
+
+  if (start_timestamp) {
+    query = query.where(
+      "created_at_timestamp",
+      ">=",
+      parseInt(start_timestamp),
+    );
+  }
+  if (end_timestamp) {
+    query = query.where("created_at_timestamp", "<=", parseInt(end_timestamp));
+  }
 
   try {
     const querySnapshot = await query.get();

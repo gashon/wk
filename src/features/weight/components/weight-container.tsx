@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { WeightForm, WeightList, WeightTrendsGraph } from ".";
 import { BodyWeightContext } from "..";
 import { BodyWeight } from "@/types";
+import { TrendContextProvider } from "@/features/trends";
 
 export const WeightContainer: FC = () => {
   const [bodyWeightData, setBodyWeightData] = useState<
@@ -10,9 +11,11 @@ export const WeightContainer: FC = () => {
 
   return (
     <BodyWeightContext.Provider value={{ bodyWeightData, setBodyWeightData }}>
-      <WeightForm />
-      <WeightTrendsGraph />
-      <WeightList />
+      <TrendContextProvider>
+        <WeightForm />
+        <WeightTrendsGraph />
+        <WeightList />
+      </TrendContextProvider>
     </BodyWeightContext.Provider>
   );
 };

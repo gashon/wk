@@ -79,12 +79,7 @@ export const WeightTrendsGraph: FC = () => {
           <YAxis domain={[minY - 1, maxY + 1]} />
           <Tooltip />
           <Legend />
-          <Line
-            type="monotone"
-            dataKey="bestFit"
-            stroke="#999797"
-            dot={false}
-          />
+          <Line type="linear" dataKey="bestFit" stroke="#999797" dot={false} />
           <Line
             type="monotone"
             dataKey="weight"

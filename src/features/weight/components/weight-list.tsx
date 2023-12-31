@@ -3,10 +3,13 @@ import { FC, useContext, useState } from "react";
 import { BodyWeightContext, useDeleteWeight, useGetWeights } from "..";
 import { Button } from "@/components/ui/button";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
+import { TrendContext } from "@/features/trends";
 
 export const WeightList: FC = () => {
-  const { data, isFetching } = useGetWeights();
   const { setBodyWeightData } = useContext(BodyWeightContext);
+  const { startRange, endRange } = useContext(TrendContext);
+  const { data, isFetching } = useGetWeights({ startRange, endRange });
+
   const deleteMutation = useDeleteWeight();
   const [isOpen, setIsOpen] = useState<boolean>(false);
 

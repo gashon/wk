@@ -27,7 +27,6 @@ export const useDeleteWeight = () =>
       queryClient.setQueryData(["body-weight"], {
         data: (prev?.data ?? []).filter(({ id }) => id !== resId),
       });
-      console.log("deleted", resId);
       successNotification("Deleted");
     },
     onError: () => errorNotification("Failed"),

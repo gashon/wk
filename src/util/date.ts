@@ -15,6 +15,9 @@ export const getEndOfDay = (date: Date) =>
 export const getSevenDaysFromNow = (): Date =>
   getStartOfDay(new Date(new Date().setDate(new Date().getDate() - 7)));
 
+export const getOneYearFromNow = (): Date =>
+  getStartOfDay(new Date(new Date().setDate(new Date().getDate() - 365)));
+
 export const formatDate = (date: Date): string => {
   const year: number = date.getFullYear();
   const month: number = date.getMonth() + 1; // getMonth() returns 0-11 for Jan-Dec, so add 1

@@ -115,7 +115,10 @@ export type BodyWeight = {
   weight: number;
 } & Resource;
 
-export type WeightGetRequest = {};
+export type WeightGetRequest = Partial<{
+  start_timestamp: string;
+  end_timestamp: string;
+}>;
 export type WeightGetResponse = Response<BodyWeight[]>;
 
 export type WeightPostResponse = Response<BodyWeight>;

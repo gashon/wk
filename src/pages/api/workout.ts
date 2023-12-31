@@ -48,7 +48,6 @@ const handleGetRequest = async (
 ) => {
   const { tokenPayload } = attachOrRetrieveAnonToken(req, res);
 
-  // TODO(gashon) support range queries
   const { type, start_timestamp, end_timestamp } =
     req.query as Partial<WorkoutGetRequest>;
 

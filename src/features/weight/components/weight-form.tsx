@@ -4,6 +4,7 @@ import { useForm, Resolver } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCreateWeight } from "@/features/weight";
+import { DateRangeSelection } from "@/features/trends";
 
 type FormValues = {
   weight: number;
@@ -49,7 +50,10 @@ export const WeightForm: FC = () => {
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col my-10">
-      <div className="flex flex-row gap-2 justify-between ">
+      <div className="flex flex-col lg:flex-row gap-5 lg:gap-10 justify-between items-center">
+        <div className="w-full lg:w-auto">
+          <DateRangeSelection />
+        </div>
         <div className="flex flex-col w-full">
           <Input
             step="any"

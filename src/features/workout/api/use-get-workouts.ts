@@ -44,7 +44,7 @@ export const useGetWorkouts = ({
   endRange?: number;
 }) =>
   useQuery({
-    queryKey: ["workouts", type],
+    queryKey: ["workouts", type, startRange, endRange],
     queryFn: (): ReturnType<typeof fetchData> =>
       fetchData({
         start_timestamp: startRange?.toString(),
