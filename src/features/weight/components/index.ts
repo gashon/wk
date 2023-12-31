@@ -1,3 +1,3 @@
-export * from "./workout-form";
-export * from "./workout-container";
-export * from "./workout-list";
+export * from "./weight-form";
+export * from "./weight-container";
+export * from "./weight-list";

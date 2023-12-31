@@ -1,29 +1,9 @@
-import { FC, useEffect, useContext } from "react";
-import {
-  useForm,
-  Resolver,
-  UseFormWatch,
-  UseFormGetValues,
-  UseFormSetValue,
-} from "react-hook-form";
+import { FC } from "react";
+import { useForm, Resolver } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import {
-  DayContext,
-  DayDropDownMenu,
-  useCreateWeight,
-} from "@/features/weight";
-import { WeightLabels } from "@/types";
+import { useCreateWeight } from "@/features/weight";
 
 type FormValues = {
   weight: number;
@@ -61,25 +41,29 @@ export const WeightForm: FC = () => {
 
   const createWeightMutation = useCreateWeight();
 
-  const onSubmit = handleSubmit(async ({weight}) => {
+  const onSubmit = handleSubmit(async ({ weight }) => {
     await createWeightMutation.mutateAsync({
-    weight 
-    }),
+      weight,
+    });
   });
 
   return (
     <form onSubmit={onSubmit} className="flex flex-col my-10">
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-row gap-2 justify-between ">
-          <div className="flex flex-col w-full">
-            <Input type="number" {...register("weight")} placeholder="weight" />
-            {errors.weight && (
-              <p className="text-red-800 opacity-75 text-sm ">
-                {errors.weight.message}
-              </p>
-            )}
-          </div>
+      <div className="flex flex-row gap-2 justify-between ">
+        <div className="flex flex-col w-full">
+          <Input
+            step="any"
+            type="number"
+            {...register("weight")}
+            placeholder="weight"
+          />
+          {errors.weight && (
+            <p className="text-red-800 opacity-75 text-sm ">
+              {errors.weight.message}
+            </p>
+          )}
         </div>
+      </div>
 
       <div className="w-full flex justify-end mt-5">
         <Button
@@ -88,7 +72,7 @@ export const WeightForm: FC = () => {
           size={"lg"}
           className="px-0"
         >
-          {createWeightMutation.isPending ? "Loading..." : "Add set"}
+          {createWeightMutation.isPending ? "Loading..." : "Add weight"}
         </Button>
       </div>
     </form>

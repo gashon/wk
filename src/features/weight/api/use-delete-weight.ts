@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { Days, BodyWeight, WeightDeleteRequest } from "@/types";
+import { BodyWeight, WeightDeleteRequest } from "@/types";
 import { errorNotification, successNotification } from "@/lib/notification";
 import { queryClient } from "@/lib/react-query";
 
@@ -15,16 +15,16 @@ const fetchMutation = async (id: WeightDeleteRequest["id"]) => {
   });
 };
 
-export const useDeleteWeight = (type: Days) =>
+export const useDeleteWeight = () =>
   useMutation({
-    mutationKey: ["weight", "delete", type],
+    mutationKey: ["weight", "delete"],
     mutationFn: fetchMutation,
     onSuccess: (_, resId) => {
       const prev: { data: BodyWeight[] } | undefined = queryClient.getQueryData(
-        ["weights", type],
+        ["body-weight"],
       );
 
-      queryClient.setQueryData(["weights", type], {
+      queryClient.setQueryData(["body-weight"], {
         data: (prev?.data ?? []).filter(({ id }) => id !== resId),
       });
       console.log("deleted", resId);

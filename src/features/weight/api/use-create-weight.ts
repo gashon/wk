@@ -25,7 +25,17 @@ const fetchMutation = async (
 export const useCreateWeight = () =>
   useMutation({
     mutationKey: ["body-weight-mutation"],
-    mutationFn: fetchMutation,
+    mutationFn: (
+      payload: Omit<
+        WeightPostRequest,
+        "created_at_timestamp" | "created_at_date_string"
+      >,
+    ) =>
+      fetchMutation({
+        ...payload,
+        created_at_date_string: new Date().toLocaleDateString(),
+        created_at_timestamp: new Date().getTime(),
+      }),
     onSuccess: (res) => {
       const prev: { data: BodyWeight[] } | undefined = queryClient.getQueryData(
         ["weights"],

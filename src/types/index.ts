@@ -119,7 +119,10 @@ export type WeightGetRequest = {};
 export type WeightGetResponse = Response<BodyWeight[]>;
 
 export type WeightPostResponse = Response<BodyWeight>;
-export type WeightPostRequest = Pick<BodyWeight, "weight">;
+export type WeightPostRequest = Pick<
+  BodyWeight,
+  "weight" | "created_at_timestamp" | "created_at_date_string"
+>;
 
 export type WeightDeleteRequest = Pick<BodyWeight, "id">;
 export type WeightDeleteResponse = { message: string };
