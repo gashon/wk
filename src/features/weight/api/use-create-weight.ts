@@ -7,7 +7,6 @@ import { queryClient } from "@/lib/react-query";
 const fetchMutation = async (
   payload: WeightPostRequest,
 ): Promise<WeightPostResponse> => {
-  console.log("DATE", payload, new Date(), new Date().getTime());
   const res = await fetch("/api/weight", {
     method: "POST",
     mode: "same-origin",

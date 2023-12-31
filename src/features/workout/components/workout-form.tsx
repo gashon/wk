@@ -165,7 +165,6 @@ export const WorkoutForm: FC = () => {
       setValue("repititions", "");
   });
 
-  console.log("err", errors);
   return (
     <form onSubmit={onSubmit} className="flex flex-col my-10">
       <div className="flex flex-col gap-2">
