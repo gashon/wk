@@ -15,16 +15,22 @@ const fetchMutation = async (id: WeightDeleteRequest["id"]) => {
   });
 };
 
-export const useDeleteWeight = () =>
+export const useDeleteWeight = ({
+  startRange,
+  endRange,
+}: {
+  startRange?: string;
+  endRange?: string;
+}) =>
   useMutation({
-    mutationKey: ["weight", "delete"],
+    mutationKey: ["weight", "delete", startRange, endRange],
     mutationFn: fetchMutation,
     onSuccess: (_, resId) => {
       const prev: { data: BodyWeight[] } | undefined = queryClient.getQueryData(
-        ["body-weight"],
+        ["body-weight", startRange, endRange],
       );
 
-      queryClient.setQueryData(["body-weight"], {
+      queryClient.setQueryData(["body-weight", startRange, endRange], {
         data: (prev?.data ?? []).filter(({ id }) => id !== resId),
       });
       successNotification("Deleted");

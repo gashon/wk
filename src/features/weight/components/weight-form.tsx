@@ -1,10 +1,10 @@
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { useForm, Resolver } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCreateWeight } from "@/features/weight";
-import { DateRangeSelection } from "@/features/trends";
+import { DateRangeSelection, TrendContext } from "@/features/trends";
 
 type FormValues = {
   weight: number;
@@ -40,7 +40,8 @@ export const WeightForm: FC = () => {
     resolver,
   });
 
-  const createWeightMutation = useCreateWeight();
+  const { startRange, endRange } = useContext(TrendContext);
+  const createWeightMutation = useCreateWeight({ startRange, endRange });
 
   const onSubmit = handleSubmit(async ({ weight }) => {
     await createWeightMutation.mutateAsync({

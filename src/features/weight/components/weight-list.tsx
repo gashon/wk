@@ -10,7 +10,7 @@ export const WeightList: FC = () => {
   const { startRange, endRange } = useContext(TrendContext);
   const { data, isFetching } = useGetWeights({ startRange, endRange });
 
-  const deleteMutation = useDeleteWeight();
+  const deleteMutation = useDeleteWeight({ startRange, endRange });
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   if (isFetching) return <LoadingSkeleton />;

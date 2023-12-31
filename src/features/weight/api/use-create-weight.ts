@@ -7,6 +7,7 @@ import { queryClient } from "@/lib/react-query";
 const fetchMutation = async (
   payload: WeightPostRequest,
 ): Promise<WeightPostResponse> => {
+  console.log("DATE", payload, new Date(), new Date().getTime());
   const res = await fetch("/api/weight", {
     method: "POST",
     mode: "same-origin",
@@ -22,7 +23,13 @@ const fetchMutation = async (
   return data;
 };
 
-export const useCreateWeight = () =>
+export const useCreateWeight = ({
+  startRange,
+  endRange,
+}: {
+  startRange?: string;
+  endRange?: string;
+}) =>
   useMutation({
     mutationKey: ["body-weight-mutation"],
     mutationFn: (
@@ -38,10 +45,10 @@ export const useCreateWeight = () =>
       }),
     onSuccess: (res) => {
       const prev: { data: BodyWeight[] } | undefined = queryClient.getQueryData(
-        ["body-weight"],
+        ["body-weight", startRange, endRange],
       );
 
-      queryClient.setQueryData(["body-weight"], {
+      queryClient.setQueryData(["body-weight", startRange, endRange], {
         data: [res.data, ...(prev?.data ?? [])],
       });
       successNotification("Created");

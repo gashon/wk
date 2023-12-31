@@ -18,7 +18,9 @@ export const getSevenDaysFromNow = (): Date =>
 export const getOneYearFromNow = (): Date =>
   getStartOfDay(new Date(new Date().setDate(new Date().getDate() - 365)));
 
-export const formatDate = (date: Date): string => {
+export const prettyDate = (dateString: string): string => {
+  const date = new Date(dateString);
+
   const year: number = date.getFullYear();
   const month: number = date.getMonth() + 1; // getMonth() returns 0-11 for Jan-Dec, so add 1
   const day: number = date.getDate();
@@ -27,4 +29,8 @@ export const formatDate = (date: Date): string => {
   const paddedDay: string = day < 10 ? "0" + day : day.toString();
 
   return `${year}-${paddedMonth}-${paddedDay}`;
+};
+
+export const formatDate = (date: Date): string => {
+  return date.toISOString();
 };
