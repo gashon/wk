@@ -42,7 +42,7 @@ export const useCreateWeight = () =>
       );
 
       queryClient.setQueryData(["body-weight"], {
-        data: [{ ...res.data, recentlyCreated: true }, ...(prev?.data ?? [])],
+        data: [res.data, ...(prev?.data ?? [])],
       });
       successNotification("Created");
     },

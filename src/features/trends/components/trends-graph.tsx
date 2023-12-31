@@ -1,4 +1,4 @@
-import { FC, PureComponent, useState, useContext } from "react";
+import { FC, useContext } from "react";
 import {
   LineChart,
   Line,
@@ -56,42 +56,6 @@ export const TrendsGraph: FC = () => {
   return (
     <>
       {Object.entries(averagedData).map(([label, data]) => (
-        <div key={`graph:${label}`} className="flex flex-col">
-          <h3>{label}</h3>
-          <ResponsiveContainer width="100%" height={400}>
-            <LineChart
-              width={500}
-              height={300}
-              data={data}
-              margin={{
-                top: 5,
-                right: 30,
-                left: 20,
-                bottom: 5,
-              }}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="created_at_date_string" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Line
-                type="monotone"
-                dataKey="weight"
-                stroke="#8884d8"
-                activeDot={{ r: 8 }}
-              />
-              <Line type="monotone" dataKey="repititions" stroke="#82ca9d" />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-      ))}
-    </>
-  );
-
-  return (
-    <>
-      {Object.entries(groupedLabel).map(([label, data]) => (
         <div key={`graph:${label}`} className="flex flex-col">
           <h3>{label}</h3>
           <ResponsiveContainer width="100%" height={400}>
