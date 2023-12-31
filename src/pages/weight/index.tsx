@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <PageLayout title={"wk logs"}>
+    <PageLayout title={"weight logs"}>
       <WeightContainer />
     </PageLayout>
   );
