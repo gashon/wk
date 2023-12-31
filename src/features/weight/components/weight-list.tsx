@@ -25,12 +25,15 @@ export const WeightList: FC = () => {
                 <span className="opacity-50">lbs</span>{" "}
               </p>
             </div>
-            <Button
-              type="button"
-              onClick={() => deleteMutation.mutateAsync(weight.id)}
-            >
-              X
-            </Button>
+            {/* @ts-ignore */}
+            {weight.recentlyCreated && (
+              <Button
+                type="button"
+                onClick={() => deleteMutation.mutateAsync(weight.id)}
+              >
+                X
+              </Button>
+            )}
           </li>
         ))}
       </ul>

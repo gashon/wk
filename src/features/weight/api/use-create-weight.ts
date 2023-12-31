@@ -38,11 +38,11 @@ export const useCreateWeight = () =>
       }),
     onSuccess: (res) => {
       const prev: { data: BodyWeight[] } | undefined = queryClient.getQueryData(
-        ["weights"],
+        ["body-weight"],
       );
 
       queryClient.setQueryData(["body-weight"], {
-        data: [res.data, ...(prev?.data ?? [])],
+        data: [{ ...res.data, recentlyCreated: true }, ...(prev?.data ?? [])],
       });
       successNotification("Created");
     },
