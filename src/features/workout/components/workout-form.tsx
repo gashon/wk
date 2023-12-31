@@ -97,7 +97,7 @@ const LabelDropDownMenu: FC<{
 
           {entries.map(([muscle, exercises]) => {
             return (
-              <>
+              <div key={`muscle:${muscle}`}>
                 <DropdownMenuSeparator />
                 <DropdownMenuLabel>{muscle}</DropdownMenuLabel>
                 <DropdownMenuRadioGroup
@@ -115,7 +115,7 @@ const LabelDropDownMenu: FC<{
                     </DropdownMenuRadioItem>
                   ))}
                 </DropdownMenuRadioGroup>
-              </>
+              </div>
             );
           })}
         </DropdownMenuContent>

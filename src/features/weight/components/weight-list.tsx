@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from "react";
+import { FC, useContext, useEffect, useState } from "react";
 
 import { BodyWeightContext, useDeleteWeight, useGetWeights } from "..";
 import { Button } from "@/components/ui/button";
@@ -13,11 +13,15 @@ export const WeightList: FC = () => {
   const deleteMutation = useDeleteWeight({ startRange, endRange });
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  useEffect(() => {
+    if (data) {
+      setBodyWeightData(data.data);
+    }
+  }, [data, setBodyWeightData]);
+
   if (isFetching) return <LoadingSkeleton />;
 
   if (!data) return <p>Failed</p>;
-
-  setBodyWeightData(data.data);
 
   return (
     <div>

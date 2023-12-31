@@ -44,7 +44,6 @@ export const useGetWeights = ({
   useQuery({
     queryKey: ["body-weight", startRange, endRange],
     queryFn: (): ReturnType<typeof fetchData> => {
-      console.log("end", endRange);
       return fetchData({
         start_timestamp: startRange
           ? getStartOfDay(new Date(startRange)).getTime().toString()

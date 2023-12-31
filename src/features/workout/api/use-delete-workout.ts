@@ -23,9 +23,12 @@ export const useDeleteWorkout = (type: Days) =>
       const prev: { data: Workout[] } | undefined = queryClient.getQueryData([
         "workouts",
         type,
+        // start and endRange aren't used here
+        undefined,
+        undefined,
       ]);
 
-      queryClient.setQueryData(["workouts", type], {
+      queryClient.setQueryData(["workouts", type, undefined, undefined], {
         data: (prev?.data ?? []).filter(({ id }) => id !== resId),
       });
       successNotification("Deleted");

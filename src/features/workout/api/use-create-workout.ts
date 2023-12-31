@@ -35,9 +35,12 @@ export const useCreateWorkout = (type: Days) =>
       const prev: { data: Workout[] } | undefined = queryClient.getQueryData([
         "workouts",
         type,
+        // start and endRange aren't used here
+        undefined,
+        undefined,
       ]);
 
-      queryClient.setQueryData(["workouts", type], {
+      queryClient.setQueryData(["workouts", type, undefined, undefined], {
         data: [res.data, ...(prev?.data ?? [])],
       });
       successNotification("Created");

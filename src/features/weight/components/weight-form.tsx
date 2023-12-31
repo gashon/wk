@@ -7,7 +7,7 @@ import { useCreateWeight } from "@/features/weight";
 import { DateRangeSelection, TrendContext } from "@/features/trends";
 
 type FormValues = {
-  weight: number;
+  weight: string;
 };
 
 const resolver: Resolver<FormValues> = async (values: FormValues) => {
@@ -36,6 +36,7 @@ export const WeightForm: FC = () => {
     formState: { errors },
     register,
     handleSubmit,
+    setValue,
   } = useForm<FormValues>({
     resolver,
   });
@@ -45,8 +46,9 @@ export const WeightForm: FC = () => {
 
   const onSubmit = handleSubmit(async ({ weight }) => {
     await createWeightMutation.mutateAsync({
-      weight,
+      weight: parseFloat(weight),
     });
+    setValue("weight", "");
   });
 
   return (
@@ -60,7 +62,7 @@ export const WeightForm: FC = () => {
             step="any"
             type="number"
             {...register("weight")}
-            placeholder="weight"
+            placeholder="weight..."
           />
           {errors.weight && (
             <p className="text-red-800 opacity-75 text-sm ">
