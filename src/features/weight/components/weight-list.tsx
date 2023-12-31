@@ -37,22 +37,24 @@ export const WeightList: FC = () => {
             <li key={`weight:${weight.id}`} className="flex justify-between ">
               <div className="flex justify-center items-center p-0 gap-1">
                 <p className="opacity-50">{weight.created_at_date_string}</p>
+              </div>
+              <div className="flex flex-row justify-center items-center">
+                {new Date().getTime() -
+                  new Date(weight.created_at_timestamp).getTime() <
+                  1000 * 60 * 60 * 24 && (
+                  <Button
+                    type="button"
+                    onClick={() => deleteMutation.mutateAsync(weight.id)}
+                  >
+                    X
+                  </Button>
+                )}
 
                 <p>
                   {weight.weight}
-                  <span className="opacity-50">lbs</span>{" "}
+                  <span className="opacity-50"> lbs</span>{" "}
                 </p>
               </div>
-              {new Date().getTime() -
-                new Date(weight.created_at_timestamp).getTime() <
-                1000 * 60 * 60 * 24 && (
-                <Button
-                  type="button"
-                  onClick={() => deleteMutation.mutateAsync(weight.id)}
-                >
-                  X
-                </Button>
-              )}
             </li>
           ))}
         </ul>
