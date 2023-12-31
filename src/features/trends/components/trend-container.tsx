@@ -2,8 +2,9 @@ import { FC, useState } from "react";
 import { TrendContext } from "..";
 
 import { formatDate, getEndOfDay, getSevenDaysFromNow } from "@/util/date";
-import { DateRangeSelection } from ".";
+import { DateRangeSelection, TrendsGraph } from ".";
 import { GraphContainer } from "@/features/trends/components/graph-container";
+import { DayDropDownMenu } from "@/features/workout/components/day-dropdown";
 
 export const TrendContainer: FC = () => {
   const [startRange, setStartRange] = useState<string>(
@@ -22,10 +23,16 @@ export const TrendContainer: FC = () => {
         setEndRange,
       }}
     >
-      <div className="w-full lg:w-1/4 mt-10">
-        <DateRangeSelection />
-      </div>
-      <GraphContainer />
+      <GraphContainer>
+        <div className="flex flex-row justify-between w-full my-10">
+          <DateRangeSelection />
+          <div className="opacity-75">
+            <DayDropDownMenu />
+          </div>
+        </div>
+        <TrendsGraph />
+        <GraphContainer />
+      </GraphContainer>
     </TrendContext.Provider>
   );
 };

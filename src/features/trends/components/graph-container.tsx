@@ -1,10 +1,9 @@
-import { useState, FC } from "react";
+import { useState, FC, PropsWithChildren } from "react";
 
 import { Days } from "@/types";
-import { DayContext, DayDropDownMenu } from "@/features/workout";
-import { TrendsGraph } from "@/features/trends/components";
+import { DayContext } from "@/features/workout";
 
-export const GraphContainer: FC = () => {
+export const GraphContainer: FC<PropsWithChildren> = ({ children }) => {
   const [type, setType] = useState<Days>(Days.PUSH);
 
   return (
@@ -16,8 +15,7 @@ export const GraphContainer: FC = () => {
         },
       }}
     >
-      <DayDropDownMenu />
-      <TrendsGraph />
+      {children}
     </DayContext.Provider>
   );
 };

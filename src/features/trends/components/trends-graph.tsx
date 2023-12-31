@@ -56,8 +56,8 @@ export const TrendsGraph: FC = () => {
   return (
     <>
       {Object.entries(averagedData).map(([label, data]) => (
-        <div key={`graph:${label}`} className="flex flex-col">
-          <h3>{label}</h3>
+        <div key={`graph:${label}`} className="flex flex-col mt-5">
+          <h3 className="opacity-50 py-2">- {label}</h3>
           <ResponsiveContainer width="100%" height={400}>
             <LineChart
               width={500}
