@@ -111,6 +111,19 @@ export type WorkoutGetResponse = Response<Workout[]>;
 
 export type WorkoutDeleteRequest = Pick<Workout, "id">;
 
+export type BodyWeight = {
+  weight: number;
+} & Resource;
+
+export type WeightGetRequest = {};
+export type WeightGetResponse = Response<BodyWeight[]>;
+
+export type WeightPostResponse = Response<BodyWeight>;
+export type WeightPostRequest = Pick<BodyWeight, "weight">;
+
+export type WeightDeleteRequest = Pick<BodyWeight, "id">;
+export type WeightDeleteResponse = { message: string };
+
 export type SnakeToCamelCase<S extends string> =
   S extends `${infer T}_${infer U}`
     ? `${T}${Capitalize<SnakeToCamelCase<U>>}`
