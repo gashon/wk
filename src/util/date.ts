@@ -34,3 +34,6 @@ export const prettyDate = (dateString: string): string => {
 export const formatDate = (date: Date): string => {
   return date.toISOString();
 };
+
+export const isWithinOneDayOfToday = (timestamp: string | number) =>
+  new Date().getTime() - new Date(timestamp).getTime() < 1000 * 60 * 60 * 24;

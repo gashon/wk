@@ -4,6 +4,7 @@ import { BodyWeightContext, useDeleteWeight, useGetWeights } from "..";
 import { Button } from "@/components/ui/button";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { TrendContext } from "@/features/trends";
+import { isWithinOneDayOfToday } from "@/util/date";
 
 export const WeightList: FC = () => {
   const { setBodyWeightData } = useContext(BodyWeightContext);
@@ -46,9 +47,7 @@ export const WeightList: FC = () => {
                     </p>
                   </div>
                   <div className="flex flex-row justify-center items-center">
-                    {new Date().getTime() -
-                      new Date(weight.created_at_timestamp).getTime() <
-                      1000 * 60 * 60 * 24 && (
+                    {isWithinOneDayOfToday(weight.created_at_timestamp) && (
                       <Button
                         type="button"
                         onClick={() => deleteMutation.mutateAsync(weight.id)}

@@ -4,6 +4,7 @@ import { DayContext, useDeleteWorkout, useGetWorkouts } from "..";
 import { Button } from "@/components/ui/button";
 import { groupBy } from "@/util/group-by";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
+import { isWithinOneDayOfToday } from "@/util/date";
 
 export const WorkoutList: FC = () => {
   const { type } = useContext(DayContext);
@@ -49,12 +50,14 @@ export const WorkoutList: FC = () => {
                           <span className="opacity-50">reps</span>
                         </p>
                       </div>
-                      <Button
-                        type="button"
-                        onClick={() => deleteMutation.mutateAsync(workout.id)}
-                      >
-                        X
-                      </Button>
+                      {isWithinOneDayOfToday(workout.created_at_timestamp) && (
+                        <Button
+                          type="button"
+                          onClick={() => deleteMutation.mutateAsync(workout.id)}
+                        >
+                          X
+                        </Button>
+                      )}
                     </li>
                   ))}
                 </ul>
