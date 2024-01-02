@@ -1,7 +1,5 @@
-import { successNotification } from "@/lib/notification";
 import { FC, PropsWithChildren } from "react";
 
-import { Toaster, toast } from "sonner";
 type Props = PropsWithChildren<{
   title: string;
 }>;

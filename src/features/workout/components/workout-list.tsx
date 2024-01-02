@@ -1,11 +1,10 @@
 import { FC, useContext } from "react";
 
-import { DayContext, useDeleteWorkout, useGetWorkouts } from "..";
+import { DayContext, useGetWorkouts } from "..";
 import { groupBy } from "@/util/group-by";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { WorkoutGroup } from "@/features/workout";
 import { useIsMounted } from "@/hooks";
-import { Workout } from "@/types";
 
 export const WorkoutList: FC = () => {
   const { type } = useContext(DayContext);
