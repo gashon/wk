@@ -183,12 +183,8 @@ export const WorkoutForm: FC = () => {
         <div className="flex flex-row gap-2 justify-between">
           <div className="flex flex-col w-full">
             <Input
-              // name="viewport"
-              content="width=device-width, initial-scale=1, maximum-scale=1"
-              // style={{ fontSize: "16px" }}
               type="number"
               {...register("repititions")}
-              name="viewport"
               placeholder="reps"
             />
             {errors.repititions && (
