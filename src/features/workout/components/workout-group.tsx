@@ -1,8 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { groupBy } from "@/util/group-by";
 import { WorkoutItem } from "@/features/workout";
 import { Workout } from "@/types";
 import { averageFromKey } from "@/util/average-key";
+import { isWithinOneDayOfToday } from "@/util/date";
 
 type WorkoutsGroup = {
   [key: string]: Workout[];
@@ -44,37 +45,52 @@ const WorkoutMetrics: FC<WorkoutMetricsProps> = ({
   );
 };
 
+const WorkoutGroupDisplay: FC<
+  Omit<WorkoutGroupProps, "date"> & { label: string }
+> = ({ workouts, previousWorkouts, label }) => (
+  <div className="ml-4 my-1 border-black border-l border-opacity-30 pl-2">
+    <div className="flex flex-row justify-between ">
+      <h4 className="underline">{label}</h4>
+      <WorkoutMetrics workouts={workouts} previousWorkouts={previousWorkouts} />
+    </div>
+    <ul>
+      {workouts.map((workout) => (
+        <WorkoutItem key={`workout:${workout.id}`} workout={workout} />
+      ))}
+    </ul>
+  </div>
+);
+
 export const WorkoutGroup: FC<WorkoutGroupProps> = ({
   date,
   workouts,
   previousWorkouts,
 }) => {
+  const [isVisible, setIsVisible] = useState<boolean>(
+    isWithinOneDayOfToday(date),
+  );
   const workoutGroups = groupBy("label", workouts) as WorkoutsGroup;
 
   return (
     <div className="border-black border-l border-opacity-30 pl-2 my-4">
-      <h3 className="underline mb-4">{date}</h3>
-      {Object.entries(workoutGroups).map(([label, groupWorkouts], i) => {
-        return (
-          <div
-            key={label}
-            className="ml-4 my-1 border-black border-l border-opacity-30 pl-2"
-          >
-            <div className="flex flex-row justify-between">
-              <h4 className="underline">{label}</h4>
-              <WorkoutMetrics
-                workouts={workouts}
-                previousWorkouts={previousWorkouts}
-              />
-            </div>
-            <ul>
-              {groupWorkouts.map((workout) => (
-                <WorkoutItem key={`workout:${workout.id}`} workout={workout} />
-              ))}
-            </ul>
-          </div>
-        );
-      })}
+      <h3
+        className="underline mb-4 cursor-pointer"
+        onClick={() => setIsVisible((v) => !v)}
+      >
+        {date}
+      </h3>
+      {isVisible && (
+        <>
+          {Object.entries(workoutGroups).map(([label, groupWorkouts]) => (
+            <WorkoutGroupDisplay
+              key={`workout:group:${label}`}
+              workouts={groupWorkouts}
+              previousWorkouts={previousWorkouts}
+              label={label}
+            />
+          ))}
+        </>
+      )}
     </div>
   );
 };
