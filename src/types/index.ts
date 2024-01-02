@@ -39,6 +39,7 @@ export const WorkoutLabels: Partial<
       OVERHEAD_TRICEP_EXTENSION: "overhead tricep extension",
       TRICEP_EXTENSION: "tricep extension",
       TRICEP_KICKBACK: "tricep kickback",
+      SKULL_CRUSHERS: "skull crushers",
     },
   },
   [Days.PULL]: {

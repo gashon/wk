@@ -74,6 +74,7 @@ const handleGetRequest = async (
     const querySnapshot = await query.get();
 
     const documents = querySnapshot.docs.map((doc) => doc.data() as BodyWeight);
+    // console.log("sending", documents);
 
     res.json({ data: documents });
   } catch (err) {

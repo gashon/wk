@@ -46,6 +46,9 @@ export const WeightTrendsGraph: FC = () => {
 
   if (!bodyWeightData) return <LoadingSkeleton />;
 
+  if (bodyWeightData.length === 0)
+    return <p className="opacity-50">No data...</p>;
+
   // Create a deep copy of the bodyWeightData array and reverse it
   const reversedData = JSON.parse(JSON.stringify(bodyWeightData)).reverse();
 

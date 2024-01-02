@@ -24,41 +24,50 @@ export const WeightList: FC = () => {
   if (!data) return <p>Failed</p>;
 
   return (
-    <div>
-      <div
-        onClick={() => setIsOpen((s: boolean) => !s)}
-        className="cursor-pointer mt-10"
-      >
-        <Button>View Raw Logs</Button>
-      </div>
-      {isOpen && (
-        <ul>
-          {(data?.data ?? []).map((weight) => (
-            <li key={`weight:${weight.id}`} className="flex justify-between ">
-              <div className="flex justify-center items-center p-0 gap-1">
-                <p className="opacity-50">{weight.created_at_date_string}</p>
-              </div>
-              <div className="flex flex-row justify-center items-center">
-                {new Date().getTime() -
-                  new Date(weight.created_at_timestamp).getTime() <
-                  1000 * 60 * 60 * 24 && (
-                  <Button
-                    type="button"
-                    onClick={() => deleteMutation.mutateAsync(weight.id)}
-                  >
-                    X
-                  </Button>
-                )}
+    <>
+      {data.data.length > 0 && (
+        <div>
+          <div
+            onClick={() => setIsOpen((s: boolean) => !s)}
+            className="cursor-pointer mt-10"
+          >
+            <Button>View Raw Logs</Button>
+          </div>
+          {isOpen && (
+            <ul>
+              {(data?.data ?? []).map((weight) => (
+                <li
+                  key={`weight:${weight.id}`}
+                  className="flex justify-between "
+                >
+                  <div className="flex justify-center items-center p-0 gap-1">
+                    <p className="opacity-50">
+                      {weight.created_at_date_string}
+                    </p>
+                  </div>
+                  <div className="flex flex-row justify-center items-center">
+                    {new Date().getTime() -
+                      new Date(weight.created_at_timestamp).getTime() <
+                      1000 * 60 * 60 * 24 && (
+                      <Button
+                        type="button"
+                        onClick={() => deleteMutation.mutateAsync(weight.id)}
+                      >
+                        X
+                      </Button>
+                    )}
 
-                <p>
-                  {weight.weight}
-                  <span className="opacity-50"> lbs</span>{" "}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ul>
+                    <p>
+                      {weight.weight}
+                      <span className="opacity-50"> lbs</span>{" "}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       )}
-    </div>
+    </>
   );
 };
