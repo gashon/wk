@@ -18,18 +18,28 @@ type WorkoutGroupProps = {
 type WorkoutMetricsProps = Pick<
   WorkoutGroupProps,
   "workouts" | "previousWorkouts"
->;
+> & { label: string };
 
 const WorkoutMetrics: FC<WorkoutMetricsProps> = ({
   workouts,
   previousWorkouts,
+  label,
 }) => {
+  if (!previousWorkouts) return;
+
   const changeClass = (improvementScore: number) => {
     return improvementScore > 0 ? "text-green-500" : "text-red-500";
   };
-  const improvementInfo = previousWorkouts
-    ? calculateImprovementScore(workouts, previousWorkouts)
+
+  const filteredPreviousWorkouts = previousWorkouts.filter(
+    (w) => w.label === label,
+  );
+  console.log("Filter", filteredPreviousWorkouts);
+  const improvementInfo = filteredPreviousWorkouts
+    ? calculateImprovementScore(workouts, filteredPreviousWorkouts)
     : undefined;
+
+  console.log("calcluating", workouts, previousWorkouts);
 
   return (
     <>
@@ -51,7 +61,11 @@ const WorkoutGroupDisplay: FC<
   <div className="ml-4 my-1 border-black border-l border-opacity-30 pl-2">
     <div className="flex flex-row justify-between ">
       <h4 className="underline">{label}</h4>
-      <WorkoutMetrics workouts={workouts} previousWorkouts={previousWorkouts} />
+      <WorkoutMetrics
+        workouts={workouts}
+        previousWorkouts={previousWorkouts}
+        label={label}
+      />
     </div>
     <ul>
       {workouts.map((workout) => (
