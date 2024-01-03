@@ -34,12 +34,9 @@ const WorkoutMetrics: FC<WorkoutMetricsProps> = ({
   const filteredPreviousWorkouts = previousWorkouts.filter(
     (w) => w.label === label,
   );
-  console.log("Filter", filteredPreviousWorkouts);
   const improvementInfo = filteredPreviousWorkouts
     ? calculateImprovementScore(workouts, filteredPreviousWorkouts)
     : undefined;
-
-  console.log("calcluating", workouts, previousWorkouts);
 
   return (
     <>
