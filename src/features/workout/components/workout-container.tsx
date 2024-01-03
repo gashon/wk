@@ -5,10 +5,15 @@ import { DayContext } from "@/features/workout";
 import { getDayFromLocalStorageSchedule } from "@/util/get-day";
 import storage from "@/lib/storage";
 import type { StorageDayAndTime } from "@/types";
+import { useIsMounted } from "@/hooks";
 
 export const WorkoutContainer: FC = () => {
   // TODO(gashon) predict day based on prior day
   const [type, setType] = useState<Days>(getDayFromLocalStorageSchedule());
+
+  // handle localStorage mount
+  const { isMounted } = useIsMounted();
+  if (!isMounted) return;
 
   return (
     <DayContext.Provider

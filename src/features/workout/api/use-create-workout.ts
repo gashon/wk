@@ -43,7 +43,6 @@ export const useCreateWorkout = (type: Days) =>
       queryClient.setQueryData(["workouts", type, undefined, undefined], {
         data: [res.data, ...(prev?.data ?? [])],
       });
-      successNotification("Created");
     },
     onError: () => errorNotification("Failed"),
   });

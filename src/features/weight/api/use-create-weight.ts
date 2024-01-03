@@ -50,7 +50,6 @@ export const useCreateWeight = ({
       queryClient.setQueryData(["body-weight", startRange, endRange], {
         data: [res.data, ...(prev?.data ?? [])],
       });
-      successNotification("Created");
     },
     onError: () => errorNotification("Failed"),
   });
