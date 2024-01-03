@@ -23,7 +23,7 @@ export const attachAnonToken = (
 
   res.setHeader(
     "Set-Cookie",
-    `${cookie}=${token}; Path=/; Secure; SameSite=None; Max-Age=315360000`,
+    `${cookie}=${token}; Path=/; Secure; SameSite=Strict; Max-Age=315360000`,
   );
 
   return { token, tokenPayload };
