@@ -14,6 +14,7 @@ import { DayContext, useGetWorkouts } from "@/features/workout";
 import { groupBy } from "@/util/group-by";
 import { getStartOfDay, getEndOfDay } from "@/util/date";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
+import { reverseAndDeepCopy } from "@/util/reverse-array";
 
 export const TrendsGraph: FC = () => {
   const { startRange, endRange } = useContext(TrendContext);
@@ -29,7 +30,10 @@ export const TrendsGraph: FC = () => {
 
   if (!data) return <p>Error</p>;
 
-  const groupedLabel = groupBy("label", data.data);
+  // Create a deep copy of the bodyWeightData array and reverse it
+  const reversedData = reverseAndDeepCopy(data.data);
+
+  const groupedLabel = groupBy("label", reversedData);
 
   const averagedData = Object.fromEntries(
     Object.entries(groupedLabel).map(([label, data]) => {

@@ -12,6 +12,7 @@ import {
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { BodyWeightContext } from "..";
 import { BodyWeight } from "@/types";
+import { reverseAndDeepCopy } from "@/util/reverse-array";
 
 const mean = (arr: number[]): number =>
   arr.reduce((acc, val) => acc + val, 0) / arr.length;
@@ -50,7 +51,7 @@ export const WeightTrendsGraph: FC = () => {
     return <p className="opacity-50">No data...</p>;
 
   // Create a deep copy of the bodyWeightData array and reverse it
-  const reversedData = JSON.parse(JSON.stringify(bodyWeightData)).reverse();
+  const reversedData = reverseAndDeepCopy(bodyWeightData);
 
   const { slope, intercept } = linearRegression(reversedData);
   const bestFitLineData = generateBestFitLineData(
