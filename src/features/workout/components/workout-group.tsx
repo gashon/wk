@@ -3,6 +3,7 @@ import { groupBy } from "@/util/group-by";
 import { WorkoutItem } from "@/features/workout";
 import { Workout } from "@/types";
 import { averageFromKey } from "@/util/average-key";
+import { sumFromKey } from "@/util/sum-key";
 import { isWithinOneDayOfToday } from "@/util/date";
 
 type WorkoutsGroup = {
@@ -108,9 +109,7 @@ export const WorkoutGroup: FC<WorkoutGroupProps> = ({
 
 // @see https://www.google.com/search?q=training+volume+equation&sca_esv=594982741&sxsrf=AM9HkKnFzLWh6BugPT6wwbi_iWfm7wmYVA%3A1704160482107&ei=4myTZeObBr6lptQP55qf0A0&ved=0ahUKEwjjlLTBzL2DAxW-kokEHWfNB9oQ4dUDCBE&uact=5&oq=training+volume+equation&gs_lp=Egxnd3Mtd2l6LXNlcnAiGHRyYWluaW5nIHZvbHVtZSBlcXVhdGlvbjIFECEYoAEyBRAhGKABMgUQIRirAjIIECEYFhgeGB1I5A1QowRY7AxwAXgBkAEAmAHjAaABywmqAQUwLjYuMbgBA8gBAPgBAcICChAAGEcY1gQYsAPCAg0QABiABBiKBRhDGLADwgIKEAAYgAQYigUYQ8ICBRAAGIAEwgIIEAAYFhgeGA_CAgYQABgWGB7CAgsQABiABBiKBRiGA-IDBRIBMSAp4gMEGAAgQYgGAZAGCg&sclient=gws-wiz-serp
 const calcluateTrainingVolume = (workouts: Workout[]): number =>
-  workouts.length *
-  averageFromKey("weight", workouts) *
-  averageFromKey("repititions", workouts);
+  sumFromKey("weight", workouts) * averageFromKey("repititions", workouts);
 
 type ImprovementInfo = {
   currentTrainingVolume: number;

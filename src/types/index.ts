@@ -30,7 +30,6 @@ export const WorkoutLabels: Partial<
     },
     shoulders: {
       DUMBBELL_FRONT_RAISE: "dumbbell front raise",
-      SHOULDER_PRESS: "shoulder press",
       DUMBBELL_LATERAL_RAISE: "dumbbell lateral raise",
       DUMBBELL_SHOULDER_PRESS: "dumbbell shoulder press",
     },
