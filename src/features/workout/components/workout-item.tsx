@@ -3,21 +3,15 @@ import { Workout } from "@/types";
 import { DayContext, useDeleteWorkout } from "..";
 import { isWithinOneDayOfToday } from "@/util/date";
 import { Button } from "@/components/ui/button";
-import { warningNotification } from "@/lib/notification";
+import { useDeletionConfirmation } from "@/hooks/use-deletion-confirmation";
 
 type WorkoutItemProps = {
   workout: Workout;
 };
 
-enum DeletionConfirmationStage {
-  Unconfirmed,
-  Confirmed,
-}
-
 export const WorkoutItem: FC<WorkoutItemProps> = ({ workout }) => {
-  const [deletionConfirmation, setDeletionConfirmation] =
-    useState<DeletionConfirmationStage>(DeletionConfirmationStage.Unconfirmed);
   const { type } = useContext(DayContext);
+  const { attemptDeletion } = useDeletionConfirmation();
   const deleteMutation = useDeleteWorkout(type);
 
   return (
@@ -33,15 +27,9 @@ export const WorkoutItem: FC<WorkoutItemProps> = ({ workout }) => {
       {isWithinOneDayOfToday(workout.created_at_timestamp) && (
         <Button
           type="button"
-          onClick={() => {
-            if (deletionConfirmation === DeletionConfirmationStage.Confirmed) {
-              deleteMutation.mutateAsync(workout.id);
-              return;
-            }
-
-            warningNotification("Click again to delete");
-            setDeletionConfirmation(DeletionConfirmationStage.Confirmed);
-          }}
+          onClick={() =>
+            attemptDeletion(() => deleteMutation.mutateAsync(workout.id))
+          }
         >
           X
         </Button>

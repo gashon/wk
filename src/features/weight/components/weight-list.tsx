@@ -5,11 +5,13 @@ import { Button } from "@/components/ui/button";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { TrendContext } from "@/features/trends";
 import { isWithinOneDayOfToday } from "@/util/date";
+import { useDeletionConfirmation } from "@/hooks/use-deletion-confirmation";
 
 export const WeightList: FC = () => {
   const { setBodyWeightData } = useContext(BodyWeightContext);
   const { startRange, endRange } = useContext(TrendContext);
   const { data, isFetching } = useGetWeights({ startRange, endRange });
+  const { attemptDeletion } = useDeletionConfirmation();
 
   const deleteMutation = useDeleteWeight({ startRange, endRange });
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -50,7 +52,11 @@ export const WeightList: FC = () => {
                     {isWithinOneDayOfToday(weight.created_at_timestamp) && (
                       <Button
                         type="button"
-                        onClick={() => deleteMutation.mutateAsync(weight.id)}
+                        onClick={() =>
+                          attemptDeletion(() =>
+                            deleteMutation.mutateAsync(weight.id),
+                          )
+                        }
                       >
                         X
                       </Button>
