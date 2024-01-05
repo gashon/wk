@@ -55,6 +55,7 @@ export const WorkoutLabels: Partial<
       HAMMER_CURL: "hammer curl",
       BICEP_CURL: "bicep curl",
       DUMBBELL_CURL: "dumbbell curl",
+      CONCENTRATION_CURL: "concentration curl",
     },
     traps: {
       DUMBBELL_SHRUG: "dumbbell shrug",
