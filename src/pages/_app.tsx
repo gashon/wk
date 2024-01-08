@@ -15,6 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
         trackSession
         trackClickEvents
         disableOnDev
+        disableNotifications
       />
       <Toaster />
       <Component {...pageProps} />

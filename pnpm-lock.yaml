@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@gashon/analytics':
-    specifier: ^1.7.5
-    version: 1.7.5
+    specifier: ^1.7.8
+    version: 1.7.8
   '@radix-ui/react-dropdown-menu':
     specifier: ^2.0.6
     version: 2.0.6(@types/react-dom@18.2.18)(@types/react@18.2.46)(react-dom@18.2.0)(react@18.2.0)
@@ -470,8 +470,8 @@ packages:
     resolution: {integrity: sha512-OfX7E2oUDYxtBvsuS4e/jSn4Q9Qb6DzgeYtsAdkPZ47znpoNsMgZw0+tVijiv3uGNR6dgNlty6r9rzIzHjtd/A==}
     dev: false
 
-  /@gashon/analytics@1.7.5:
-    resolution: {integrity: sha512-lWSCFwGHwlZ9KsGm42aYU6N88cFYa8IfoK2nxdEWY8RWld76gmICKJOmnb6oCPbsCw7JjQMMn2r9jhNFUWE+3w==}
+  /@gashon/analytics@1.7.8:
+    resolution: {integrity: sha512-1TBoqYvvlZ9mfFxB3UNmmGMuCWuZXKIPD2XV7eAG4Nt7mDUQeouavd+V4Hu+erbSIH5hhZHFb/o3vMxjHM9paw==}
     dependencies:
       '@fingerprintjs/fingerprintjs': 4.2.1
       '@types/sha1': 1.1.5
