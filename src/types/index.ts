@@ -43,12 +43,13 @@ export const WorkoutLabels: Partial<
   },
   [Days.PULL]: {
     back: {
+      LAT_PULLDOWN: "lat pulldown",
+      SEATED_CABLE_ROW: "seated cable row",
       DEADLIFT: "deadlift",
       PULL_UP: "pull up",
       BENT_OVER_ROW: "bent over row",
       FACE_PULL: "face pull",
       DUMBBELL_ROW: "dumbbell row",
-      LAT_PULLDOWN: "lat pulldown",
       DUMBBELL_PULLOVER: "dumbbell pullover",
     },
     biceps: {
