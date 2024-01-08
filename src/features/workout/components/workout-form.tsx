@@ -170,7 +170,12 @@ export const WorkoutForm: FC = () => {
       <div className="flex flex-col gap-2">
         <div className="flex flex-row gap-2 justify-between ">
           <div className="flex flex-col w-full">
-            <Input type="number" {...register("weight")} placeholder="weight" />
+            <Input
+              type="number"
+              step="any"
+              {...register("weight")}
+              placeholder="weight"
+            />
             {errors.weight && (
               <p className="text-red-800 opacity-75 text-sm ">
                 {errors.weight.message}
