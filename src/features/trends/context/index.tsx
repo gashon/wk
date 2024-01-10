@@ -5,7 +5,7 @@ import {
   getSevenDaysFromNow,
   getEndOfDay,
   formatDate,
-  getOneYearFromNow,
+  getOneMonthFromNow,
 } from "@/util/date";
 
 export const TrendContext = createContext<{
@@ -22,7 +22,7 @@ export const TrendContext = createContext<{
 
 export const TrendContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [startRange, setStartRange] = useState<string>(
-    formatDate(getOneYearFromNow()),
+    formatDate(getOneMonthFromNow()),
   );
   const [endRange, setEndRange] = useState<string>(
     formatDate(getEndOfDay(new Date())),

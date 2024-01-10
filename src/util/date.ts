@@ -18,6 +18,9 @@ export const getSevenDaysFromNow = (): Date =>
 export const getOneYearFromNow = (): Date =>
   getStartOfDay(new Date(new Date().setDate(new Date().getDate() - 365)));
 
+export const getOneMonthFromNow = (): Date =>
+  getStartOfDay(new Date(new Date().setDate(new Date().getDate() - 31)));
+
 export const prettyDate = (dateString: string): string => {
   const date = new Date(dateString);
 
