@@ -29,7 +29,7 @@ const WorkoutMetrics: FC<WorkoutMetricsProps> = ({
   label,
 }) => {
   const changeClass = (improvementScore: number) => {
-    return improvementScore > 0 ? "text-green-500" : "text-red-500";
+    return improvementScore >= 0 ? "text-green-500" : "text-red-500";
   };
 
   const currentTrainingVolume = calculateTrainingVolume(workouts);
