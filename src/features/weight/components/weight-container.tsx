@@ -11,7 +11,7 @@ export const WeightContainer: FC = () => {
 
   return (
     <BodyWeightContext.Provider value={{ bodyWeightData, setBodyWeightData }}>
-      <TrendContextProvider>
+      <TrendContextProvider oneMonth>
         <WeightForm />
         <WeightTrendsGraph />
         <WeightList />
