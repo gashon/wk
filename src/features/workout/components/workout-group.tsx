@@ -83,7 +83,6 @@ export const WorkoutGroup: FC<WorkoutGroupProps> = ({
     isWithinOneDayOfToday(date),
   );
   const workoutGroups = groupBy("label", workouts) as WorkoutsGroup;
-  console.log("historic", historicTrainingVolume);
 
   return (
     <div className="border-black border-l border-opacity-30 pl-2 my-4">
