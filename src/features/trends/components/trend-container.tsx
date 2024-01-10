@@ -1,14 +1,14 @@
 import { FC, useState } from "react";
 import { TrendContext } from "..";
 
-import { formatDate, getEndOfDay, getSevenDaysFromNow } from "@/util/date";
+import { formatDate, getOneYearFromNow, getEndOfDay } from "@/util/date";
 import { DateRangeSelection, TrendsGraph } from ".";
 import { GraphContainer } from "@/features/trends/components/graph-container";
 import { DayDropDownMenu } from "@/features/workout/components/day-dropdown";
 
 export const TrendContainer: FC = () => {
   const [startRange, setStartRange] = useState<string>(
-    formatDate(getSevenDaysFromNow()),
+    formatDate(getOneYearFromNow()),
   );
   const [endRange, setEndRange] = useState<string>(
     formatDate(getEndOfDay(new Date())),

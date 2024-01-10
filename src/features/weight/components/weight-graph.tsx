@@ -11,36 +11,8 @@ import {
 } from "recharts";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { BodyWeightContext } from "..";
-import { BodyWeight } from "@/types";
 import { reverseAndDeepCopy } from "@/util/reverse-array";
-
-const mean = (arr: number[]): number =>
-  arr.reduce((acc, val) => acc + val, 0) / arr.length;
-
-const linearRegression = (
-  bodyWeight: BodyWeight[],
-): { slope: number; intercept: number } => {
-  const x = bodyWeight.map((_, index) => index);
-  const y = bodyWeight.map((item) => item.weight);
-  const xMean = mean(x);
-  const yMean = mean(y);
-  const slope =
-    x.reduce((acc, xVal, idx) => acc + (xVal - xMean) * (y[idx] - yMean), 0) /
-    x.reduce((acc, xVal) => acc + Math.pow(xVal - xMean, 2), 0);
-  const intercept = yMean - slope * xMean;
-  return { slope, intercept };
-};
-
-const generateBestFitLineData = (
-  bodyWeight: BodyWeight[],
-  slope: number,
-  intercept: number,
-): (BodyWeight & { bestFit: number })[] => {
-  return bodyWeight.map((item, index) => ({
-    ...item,
-    bestFit: slope * index + intercept,
-  }));
-};
+import { generateBestFitLineData, linearRegression } from "@/util/best-fit";
 
 export const WeightTrendsGraph: FC = () => {
   const { bodyWeightData } = useContext(BodyWeightContext);
@@ -53,7 +25,7 @@ export const WeightTrendsGraph: FC = () => {
   // Create a deep copy of the bodyWeightData array and reverse it
   const reversedData = reverseAndDeepCopy(bodyWeightData);
 
-  const { slope, intercept } = linearRegression(reversedData);
+  const { slope, intercept } = linearRegression("weight", reversedData);
   const bestFitLineData = generateBestFitLineData(
     reversedData,
     slope,
