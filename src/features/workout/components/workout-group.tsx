@@ -33,7 +33,7 @@ const WorkoutMetrics: FC<WorkoutMetricsProps> = ({
   };
 
   const currentTrainingVolume = calculateTrainingVolume(workouts);
-  const improvementInfo = !historicTrainingVolume[label]
+  const improvementInfo = historicTrainingVolume[label]
     ? calculateImprovementScore(
         currentTrainingVolume,
         historicTrainingVolume[label],
@@ -42,14 +42,12 @@ const WorkoutMetrics: FC<WorkoutMetricsProps> = ({
 
   return (
     <>
-      {improvementInfo && (
-        <p className="opacity-50">
-          <span className={changeClass(improvementInfo.improvementScore)}>
-            {improvementInfo.improvementScore > 0 ? "+" : ""}
-            {improvementInfo.improvementScore.toFixed(2)}%
-          </span>
-        </p>
-      )}
+      <p className="opacity-50">
+        <span className={changeClass(improvementInfo.improvementScore)}>
+          {improvementInfo.improvementScore > 0 ? "+" : ""}
+          {improvementInfo.improvementScore.toFixed(2)}%
+        </span>
+      </p>
     </>
   );
 };
