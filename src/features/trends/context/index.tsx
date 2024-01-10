@@ -6,6 +6,7 @@ import {
   getEndOfDay,
   formatDate,
   getOneMonthFromNow,
+  getOneYearFromNow,
 } from "@/util/date";
 
 export const TrendContext = createContext<{
@@ -20,9 +21,13 @@ export const TrendContext = createContext<{
   setEndRange: () => {},
 });
 
-export const TrendContextProvider: FC<PropsWithChildren> = ({ children }) => {
+type Props = {
+  oneMonth?: boolean;
+} & PropsWithChildren;
+
+export const TrendContextProvider: FC<Props> = ({ oneMonth, children }) => {
   const [startRange, setStartRange] = useState<string>(
-    formatDate(getOneMonthFromNow()),
+    formatDate(oneMonth ? getOneMonthFromNow() : getOneYearFromNow()),
   );
   const [endRange, setEndRange] = useState<string>(
     formatDate(getEndOfDay(new Date())),
