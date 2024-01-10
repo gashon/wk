@@ -28,17 +28,17 @@ const WorkoutMetrics: FC<WorkoutMetricsProps> = ({
   historicTrainingVolume,
   label,
 }) => {
-  if (!historicTrainingVolume[label]) return;
-
   const changeClass = (improvementScore: number) => {
     return improvementScore > 0 ? "text-green-500" : "text-red-500";
   };
 
   const currentTrainingVolume = calculateTrainingVolume(workouts);
-  const improvementInfo = calculateImprovementScore(
-    currentTrainingVolume,
-    historicTrainingVolume[label],
-  );
+  const improvementInfo = !historicTrainingVolume[label]
+    ? calculateImprovementScore(
+        currentTrainingVolume,
+        historicTrainingVolume[label],
+      )
+    : 0;
 
   return (
     <>
