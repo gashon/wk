@@ -38,7 +38,7 @@ const WorkoutMetrics: FC<WorkoutMetricsProps> = ({
         currentTrainingVolume,
         historicTrainingVolume[label],
       )
-    : 0;
+    : { improvementScore: 0 };
 
   return (
     <>
