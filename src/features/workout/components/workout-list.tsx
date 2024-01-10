@@ -5,6 +5,11 @@ import { groupBy } from "@/util/group-by";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { WorkoutGroup } from "@/features/workout";
 import { useIsMounted } from "@/hooks";
+import {
+  HistoricTrainingVolume,
+  calculateAverageTrainingVolume,
+  calculateTrainingVolume,
+} from "@/util/average-training-volume";
 
 export const WorkoutList: FC = () => {
   const { type } = useContext(DayContext);
@@ -20,18 +25,26 @@ export const WorkoutList: FC = () => {
   return (
     <div>
       {Object.entries(groupedData).map(([date, workouts], i) => {
-        let previousWorkouts = undefined;
-        if (i < Object.keys(groupedData).length - 1)
-          previousWorkouts = Object.values(
-            groupedData[Object.keys(groupedData)[i + 1]],
-          );
+        const dataBeforeDate = Object.keys(
+          groupedData,
+        ).reduce<HistoricTrainingVolume>((acc, _date) => {
+          if (new Date(_date) < new Date(date)) {
+            const tVolume = calculateAverageTrainingVolume(groupedData[_date]);
+            for (const d in tVolume) {
+              // average
+              if (acc[d]) acc[d] = (tVolume[d] + acc[d]) / 2;
+              else acc[d] = tVolume[d];
+            }
+          }
+          return acc;
+        }, {});
 
         return (
           <WorkoutGroup
             key={date}
             date={date}
             workouts={workouts}
-            previousWorkouts={previousWorkouts}
+            historicTrainingVolume={dataBeforeDate}
           />
         );
       })}
