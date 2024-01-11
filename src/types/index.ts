@@ -24,6 +24,7 @@ export const WorkoutLabels: Partial<
       INCLINE_DUMBELL_PRESS: "incline dumbell press",
       CHEST_PRESS: "chest press",
       BENCHPRESS: "benchpress",
+      CABLE_FLY: "cable fly",
       PEC_FLY: "pec fly",
       PEC_DEC: "pec dec",
       DUMBBELL_BENCH_PRESS: "dumbbell bench press",
