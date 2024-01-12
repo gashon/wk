@@ -30,7 +30,7 @@ export const WorkoutLabels: Partial<
       DUMBBELL_BENCH_PRESS: "dumbbell bench press",
       DUMBBELL_FLY: "dumbbell fly",
     },
-    shoulders: {
+    shoullers: {
       DUMBBELL_FRONT_RAISE: "dumbbell front raise",
       DUMBBELL_LATERAL_RAISE: "dumbbell lateral raise",
       DUMBBELL_SHOULDER_PRESS: "dumbbell shoulder press",
@@ -57,11 +57,11 @@ export const WorkoutLabels: Partial<
     biceps: {
       HAMMER_CURL: "hammer curl",
       BICEP_CURL: "bicep curl",
-      DUMBBELL_CURL: "dumbbell curl",
       CONCENTRATION_CURL: "concentration curl",
       PREACHER_CURL: "preacher curl",
     },
     traps: {
+      BAR_SHRUG: "bar shrug",
       DUMBBELL_SHRUG: "dumbbell shrug",
     },
   },
