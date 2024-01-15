@@ -30,7 +30,7 @@ export const WorkoutLabels: Partial<
       DUMBBELL_BENCH_PRESS: "dumbbell bench press",
       DUMBBELL_FLY: "dumbbell fly",
     },
-    shoullers: {
+    shoulders: {
       DUMBBELL_FRONT_RAISE: "dumbbell front raise",
       DUMBBELL_LATERAL_RAISE: "dumbbell lateral raise",
       DUMBBELL_SHOULDER_PRESS: "dumbbell shoulder press",
@@ -38,7 +38,8 @@ export const WorkoutLabels: Partial<
     triceps: {
       TRICEP_DIP: "tricep dip",
       OVERHEAD_TRICEP_EXTENSION: "overhead tricep extension",
-      TRICEP_EXTENSION: "tricep extension",
+      TRICEP_ROPE_EXTENSION: "tricep rope extension",
+      TRICEP_BAR_EXTENSION: "tricep bar extension",
       TRICEP_KICKBACK: "tricep kickback",
       SKULL_CRUSHERS: "skull crushers",
     },
