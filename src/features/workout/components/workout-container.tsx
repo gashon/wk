@@ -10,7 +10,7 @@ import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 
 export const WorkoutContainer: FC = () => {
   // TODO(gashon) predict day based on prior day
-  const [type, setType] = useState<Days>(getDayFromLocalStorageSchedule());
+  const [type, setType] = useState<Days>(Days.PUSH);
 
   // handle localStorage mount
   const { isMounted } = useIsMounted();
