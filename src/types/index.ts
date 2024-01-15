@@ -36,12 +36,12 @@ export const WorkoutLabels: Partial<
       DUMBBELL_SHOULDER_PRESS: "dumbbell shoulder press",
     },
     triceps: {
-      TRICEP_DIP: "tricep dip",
-      OVERHEAD_TRICEP_EXTENSION: "overhead tricep extension",
       TRICEP_ROPE_EXTENSION: "tricep rope extension",
       TRICEP_BAR_EXTENSION: "tricep bar extension",
       TRICEP_KICKBACK: "tricep kickback",
       SKULL_CRUSHERS: "skull crushers",
+      OVERHEAD_TRICEP_EXTENSION: "overhead tricep extension",
+      TRICEP_DIP: "tricep dip",
     },
   },
   [Days.PULL]: {
