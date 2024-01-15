@@ -149,3 +149,7 @@ export type StorageDayAndTime = {
   timestamp: string;
   workout: Days;
 };
+
+export type LoginPostRequest = {
+  token: string;
+};

@@ -10,15 +10,16 @@ type TokenCreation = {
   tokenPayload: AnonToken;
 };
 
+const createPayload = () => ({
+  user_id: uuidv4(),
+  created_at: new Date().toISOString(),
+});
+
 export const attachAnonToken = (
   cookie: string,
+  tokenPayload: AnonToken,
   res: NextApiResponse,
 ): TokenCreation => {
-  const tokenPayload = {
-    user_id: uuidv4(),
-    created_at: new Date().toISOString(),
-  };
-
   const token = createToken<AnonToken>(tokenPayload);
 
   res.setHeader(
@@ -35,13 +36,14 @@ export const attachOrRetrieveAnonToken = (
 ): TokenCreation => {
   const cookie = ANON_TOKEN;
 
-  if (!req.cookies[cookie]) return attachAnonToken(cookie, res);
+  if (!req.cookies[cookie])
+    return attachAnonToken(cookie, createPayload(), res);
 
   try {
     const tokenPayload = verifyToken<AnonToken>(req.cookies[cookie]);
     // @ts-ignore : verified token is of type AnonToken
     return { token: req.cookies[cookie], tokenPayload };
   } catch (err) {
-    return attachAnonToken(cookie, res);
+    return attachAnonToken(cookie, createPayload(), res);
   }
 };
