@@ -81,6 +81,9 @@ export const WorkoutLabels: Partial<
       DUMBBELL_DEADLIFT: "dumbbell deadlift",
       LEG_CURL: "leg curl",
     },
+    hip: {
+      HIP_ABDUCTOR: "hip abductor",
+    },
     calves: {
       DUMBBELL_CALF_RAISE: "dumbbell calf raise",
       CALF_RAISE: "calf raise",
