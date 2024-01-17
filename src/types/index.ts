@@ -79,10 +79,11 @@ export const WorkoutLabels: Partial<
     },
     hamstrings: {
       DUMBBELL_DEADLIFT: "dumbbell deadlift",
-      LEG_CURL: "leg curl",
+      HAMSTRING_CURL: "hamstring curl",
     },
-    hip: {
-      HIP_ABDUCTOR: "hip abductor",
+    thigh: {
+      SEATED_THIGH_ADDUCTOR: "seated inner-thigh adductor",
+      SEATED_HIP_ABDUCTOR: "seated outer-thigh abductor",
     },
     calves: {
       DUMBBELL_CALF_RAISE: "dumbbell calf raise",
