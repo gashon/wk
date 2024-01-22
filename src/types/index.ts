@@ -31,6 +31,7 @@ export const WorkoutLabels: Partial<
       DUMBBELL_FLY: "dumbbell fly",
     },
     shoulders: {
+      MACHINE_SHOULDER_PRESS: "machine shoulder press",
       DUMBBELL_FRONT_RAISE: "dumbbell front raise",
       DUMBBELL_LATERAL_RAISE: "dumbbell lateral raise",
       DUMBBELL_SHOULDER_PRESS: "dumbbell shoulder press",
