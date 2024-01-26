@@ -22,11 +22,11 @@ export const WorkoutLabels: Partial<
   [Days.PUSH]: {
     chest: {
       INCLINE_DUMBELL_PRESS: "incline dumbell press",
-      CHEST_PRESS: "chest press",
-      BENCHPRESS: "benchpress",
-      CABLE_FLY: "cable fly",
-      PEC_FLY: "pec fly",
+      MACHINE_CHEST_PRESS: "machine chest press",
       PEC_DEC: "pec dec",
+      CABLE_FLY: "cable fly",
+      BENCHPRESS: "barbell benchpress",
+      PEC_FLY: "pec fly",
       DUMBBELL_BENCH_PRESS: "dumbbell bench press",
       DUMBBELL_FLY: "dumbbell fly",
     },
@@ -58,8 +58,9 @@ export const WorkoutLabels: Partial<
       DUMBBELL_PULLOVER: "dumbbell pullover",
     },
     biceps: {
-      HAMMER_CURL: "hammer curl",
       BICEP_CURL: "bicep curl",
+      ARM_CURL_MACHINE: "arm curl machine",
+      HAMMER_CURL: "hammer curl",
       CONCENTRATION_CURL: "concentration curl",
       PREACHER_CURL: "preacher curl",
     },
