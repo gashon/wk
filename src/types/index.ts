@@ -9,12 +9,27 @@ type Resource = {
   created_at_date_string: string;
 };
 
+// number mapping based on date.getDay()
+export enum WeekDays {
+  Monday = 1,
+  Tuesday = 2,
+  Wednesday = 3,
+  Thursday = 4,
+  Friday = 5,
+  Saturday = 6,
+  Sunday = 0,
+}
+
 export enum Days {
   PUSH = "push",
   PULL = "pull",
   LEGS = "legs",
   REST = "rest",
 }
+
+export type WorkoutSchedule = {
+  [key in WeekDays]?: Days;
+};
 
 export const WorkoutLabels: Partial<
   Record<Days, Record<string, Record<string, string>>>

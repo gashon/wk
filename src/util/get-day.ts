@@ -1,5 +1,13 @@
+import { PUSH_PULL_LEG_SCHEDULE } from "@/consts";
 import storage from "@/lib/storage";
-import { Days, StorageDayAndTime } from "@/types";
+import { Days, StorageDayAndTime, WeekDays, WorkoutSchedule } from "@/types";
+
+export const getTrainingGroupFromSchedule = (): Days => {
+  const schedule = PUSH_PULL_LEG_SCHEDULE;
+  const today = new Date().getDay() as WeekDays;
+
+  return schedule[today]!;
+};
 
 export const getDayFromLocalStorageSchedule = (): Days => {
   const historicDay = storage.get<StorageDayAndTime>("day");
