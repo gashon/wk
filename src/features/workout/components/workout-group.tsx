@@ -81,15 +81,17 @@ export const WorkoutGroup: FC<WorkoutGroupProps> = ({
     isWithinOneDayOfToday(date),
   );
   const workoutGroups = groupBy("label", workouts) as WorkoutsGroup;
+  const duration = getWorkoutDurationInMinutes(workouts);
 
   return (
     <div className="border-black border-l border-opacity-30 pl-2 my-4">
-      <h3
-        className="underline mb-4 cursor-pointer"
+      <div
         onClick={() => setIsVisible((v) => !v)}
+        className="flex flex-row justify-between cursor-pointer gap-1 mb-4"
       >
-        {date}
-      </h3>
+        <h3 className="underline">{date}</h3>
+        <p className="opacity-25">{duration}m</p>
+      </div>
       {isVisible && (
         <>
           {Object.entries(workoutGroups).map(([label, groupWorkouts]) => (
@@ -119,4 +121,17 @@ const calculateImprovementScore = (
         historicTrainingVolume) *
       100,
   };
+};
+
+const getWorkoutDurationInMinutes = (workouts: Workout[]): number => {
+  const sortedExercises = workouts.sort(
+    (a, b) => a.created_at_timestamp - b.created_at_timestamp,
+  );
+
+  const diff =
+    (sortedExercises[sortedExercises.length - 1].created_at_timestamp -
+      sortedExercises[0].created_at_timestamp) /
+    (1000 * 60);
+
+  return Number(diff.toFixed(0));
 };
