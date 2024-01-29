@@ -53,24 +53,33 @@ const WorkoutMetrics: FC<WorkoutMetricsProps> = ({
 };
 
 const WorkoutGroupDisplay: FC<
-  Omit<WorkoutGroupProps, "date"> & { label: string }
-> = ({ workouts, historicTrainingVolume, label }) => (
-  <div className="ml-4 my-1 border-black border-l border-opacity-30 pl-2">
-    <div className="flex flex-row justify-between ">
-      <h4 className="underline">{label}</h4>
-      <WorkoutMetrics
-        workouts={workouts}
-        historicTrainingVolume={historicTrainingVolume}
-        label={label}
-      />
+  Omit<WorkoutGroupProps, "date"> & { label: string; isVisible?: boolean }
+> = ({ workouts, historicTrainingVolume, isVisible: isVisibleInit, label }) => {
+  const [isVisible, setIsVisible] = useState<boolean>(!!isVisibleInit);
+
+  return (
+    <div className="ml-4 my-1 border-black border-l border-opacity-30 pl-2">
+      <div
+        className="flex flex-row justify-between cursor-pointer my-2"
+        onClick={() => setIsVisible((v) => !v)}
+      >
+        <h4 className="underline">{label}</h4>
+        <WorkoutMetrics
+          workouts={workouts}
+          historicTrainingVolume={historicTrainingVolume}
+          label={label}
+        />
+      </div>
+      {isVisible && (
+        <ul>
+          {workouts.map((workout) => (
+            <WorkoutItem key={`workout:${workout.id}`} workout={workout} />
+          ))}
+        </ul>
+      )}
     </div>
-    <ul>
-      {workouts.map((workout) => (
-        <WorkoutItem key={`workout:${workout.id}`} workout={workout} />
-      ))}
-    </ul>
-  </div>
-);
+  );
+};
 
 export const WorkoutGroup: FC<WorkoutGroupProps> = ({
   historicTrainingVolume,
@@ -100,6 +109,7 @@ export const WorkoutGroup: FC<WorkoutGroupProps> = ({
               workouts={groupWorkouts}
               historicTrainingVolume={historicTrainingVolume}
               label={label}
+              isVisible={isWithinOneDayOfToday(date)}
             />
           ))}
         </>
