@@ -54,9 +54,11 @@ export const WorkoutLabels: Partial<
     triceps: {
       TRICEP_ROPE_EXTENSION: "tricep rope extension",
       TRICEP_BAR_EXTENSION: "tricep bar extension",
+      MACHINE_ARM_EXTENSION: "machine arm extension",
+      CROSS_CABLE_TRICEP_EXTENSION: "cross cable tricep extension",
       OVERHEAD_CABLE_TRICEP_EXTENSION: "overhead cable tricep extension",
       OVERHEAD_DUMBELL_TRICEP_EXTENSION: "overhead dumbell tricep extension",
-      SKULL_CRUSHERS: "skull crushers",
+      KULL_CRUSHERS: "skull crushers",
       TRICEP_KICKBACK: "tricep kickback",
       TRICEP_DIP: "tricep dip",
     },
