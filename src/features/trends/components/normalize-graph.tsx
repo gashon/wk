@@ -37,7 +37,7 @@ export const NormalizedTrendsGraph: FC = () => {
 
   const groupedLabel = groupBy("label", reversedData);
 
-  const normalizeData = Object.fromEntries(
+  const averagedData = Object.fromEntries(
     Object.entries(groupedLabel).map(([label, data]) => {
       const groupedByDate = groupBy("created_at_date_string", data);
       const averaged = Object.entries(groupedByDate).map(([date, entries]) => {
