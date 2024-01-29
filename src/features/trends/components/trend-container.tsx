@@ -1,12 +1,12 @@
-import { FC, useState } from "react";
+import { FC, PropsWithChildren, useState } from "react";
 import { TrendContext } from "..";
 
 import { formatDate, getOneYearFromNow, getEndOfDay } from "@/util/date";
-import { DateRangeSelection, TrendsGraph } from ".";
+import { DateRangeSelection } from ".";
 import { GraphContainer } from "@/features/trends/components/graph-container";
 import { DayDropDownMenu } from "@/features/workout/components/day-dropdown";
 
-export const TrendContainer: FC = () => {
+export const TrendContainer: FC<PropsWithChildren> = ({ children }) => {
   const [startRange, setStartRange] = useState<string>(
     formatDate(getOneYearFromNow()),
   );
@@ -30,7 +30,7 @@ export const TrendContainer: FC = () => {
             <DayDropDownMenu />
           </div>
         </div>
-        <TrendsGraph />
+        {children}
         <GraphContainer />
       </GraphContainer>
     </TrendContext.Provider>
