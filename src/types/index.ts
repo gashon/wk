@@ -67,6 +67,7 @@ export const WorkoutLabels: Partial<
     back: {
       WIDE_GRIP_LAT_PULLDOWN: "wide grip lat pulldown",
       SEATED_CABLE_ROW: "seated cable row",
+      VERTICAL_TRACTION: "vertical traction",
       DEADLIFT: "deadlift",
       PULL_UP: "pull up",
       BENT_OVER_ROW: "bent over row",
