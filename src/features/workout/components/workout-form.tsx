@@ -127,6 +127,8 @@ const LabelDropDownMenu: FC<{
 export const WorkoutForm: FC = () => {
   const { type } = useContext(DayContext);
 
+  console.log(WorkoutLabels, type);
+
   const {
     formState: { errors },
     reset,

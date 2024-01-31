@@ -34,6 +34,11 @@ export type WorkoutSchedule = {
 export const WorkoutLabels: Partial<
   Record<Days, Record<string, Record<string, string>>>
 > = {
+  [Days.REST]: {
+    "rest day": {
+      N_A: ":)",
+    },
+  },
   [Days.PUSH]: {
     chest: {
       INCLINE_DUMBELL_PRESS: "incline dumbell press",
