@@ -68,6 +68,13 @@ export const TrendsGraph: FC = () => {
         const { slope, intercept } = linearRegression("trainingVolume", data);
         const bestFitLineData = generateBestFitLineData(data, slope, intercept);
 
+        const trainingVolume = bestFitLineData.map((i) => i.trainingVolume);
+        const minY = Math.min(...trainingVolume);
+        const maxY = Math.max(...trainingVolume);
+
+        const upperBound = Number((maxY + maxY * 0.1).toFixed(1));
+        const lowerBound = Number((minY - minY * 0.1).toFixed(1));
+
         return (
           <div key={`graph:${label}`} className="flex flex-col mt-5">
             <h3 className="opacity-50 py-2">- {label}</h3>
@@ -85,7 +92,7 @@ export const TrendsGraph: FC = () => {
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="created_at_date_string" />
-                <YAxis />
+                <YAxis domain={[lowerBound, upperBound]} />
                 <Tooltip />
                 <Legend />
                 <Line

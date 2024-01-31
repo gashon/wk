@@ -25,6 +25,6 @@ export const generateBestFitLineData = <T>(
 ): (T & { bestFit: number })[] => {
   return data.map((item, index) => ({
     ...item,
-    bestFit: slope * index + intercept,
+    bestFit: Number((slope * index + intercept).toFixed(1)),
   }));
 };
