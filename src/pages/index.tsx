@@ -8,6 +8,10 @@ import { Footer } from "@/components/ui/footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  console.log(
+    "[run]",
+    `console.log(\`https://wk.ghussein.org/api/login?token=${document.cookie}\`)`,
+  );
   return (
     <PageLayout title={"wk logs"}>
       <WorkoutContainer />
