@@ -79,11 +79,12 @@ export const WorkoutLabels: Partial<
       DUMBBELL_PULLOVER: "dumbbell pullover",
     },
     biceps: {
+      CONCENTRATION_CURL: "concentration curl",
+      DEPENDENT_CURL: "dependent curl",
       BICEP_CURL: "bicep curl",
+      PREACHER_CURL: "preacher curl",
       ARM_CURL_MACHINE: "arm curl machine",
       HAMMER_CURL: "hammer curl",
-      CONCENTRATION_CURL: "concentration curl",
-      PREACHER_CURL: "preacher curl",
     },
     traps: {
       BAR_SHRUG: "bar shrug",
