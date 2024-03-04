@@ -1,6 +1,6 @@
 import { FC, useContext } from "react";
 
-import { DayContext, useGetWorkouts } from "..";
+import { DayContext, WorkoutDataContext, useGetWorkouts } from "..";
 import { groupBy } from "@/util/group-by";
 import { LoadingSkeleton } from "@/components/ui/loading-skeleton";
 import { WorkoutGroup } from "@/features/workout";
@@ -12,24 +12,23 @@ import {
 } from "@/util/average-training-volume";
 
 export const WorkoutList: FC = () => {
-  const { type } = useContext(DayContext);
-  const { data, isFetching } = useGetWorkouts({ type });
+  const { isFetching, workoutsGroupedByDate } = useContext(WorkoutDataContext);
   const { isMounted } = useIsMounted();
 
   if (isFetching || !isMounted) return <LoadingSkeleton />;
 
-  if (!data) return <p>Failed</p>;
-
-  const groupedData = groupBy("created_at_date_string", data.data);
+  if (!workoutsGroupedByDate) return <p>Failed</p>;
 
   return (
     <div>
-      {Object.entries(groupedData).map(([date, workouts], i) => {
+      {Object.entries(workoutsGroupedByDate).map(([date, workouts], i) => {
         const dataBeforeDate = Object.keys(
-          groupedData,
+          workoutsGroupedByDate,
         ).reduce<HistoricTrainingVolume>((acc, _date) => {
           if (new Date(_date) < new Date(date)) {
-            const tVolume = calculateAverageTrainingVolume(groupedData[_date]);
+            const tVolume = calculateAverageTrainingVolume(
+              workoutsGroupedByDate[_date],
+            );
             for (const d in tVolume) {
               // average
               if (acc[d]) acc[d] = (tVolume[d] + acc[d]) / 2;
