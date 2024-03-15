@@ -53,9 +53,9 @@ export const WorkoutLabels: Partial<
       DUMBBELL_SHOULDER_PRESS: "dumbbell shoulder press",
     },
     triceps: {
+      MACHINE_TRICEP_EXTENSION: "machine tricep extension",
       TRICEP_ROPE_EXTENSION: "tricep rope extension",
       TRICEP_BAR_EXTENSION: "tricep bar extension",
-      MACHINE_ARM_EXTENSION: "machine arm extension",
       CROSS_CABLE_TRICEP_EXTENSION: "cross cable tricep extension",
       OVERHEAD_TRICEP_ROPE_EXTENSION: "overhead tricep rope extension",
       OVERHEAD_DUMBELL_TRICEP_EXTENSION: "overhead dumbell tricep extension",
@@ -69,6 +69,7 @@ export const WorkoutLabels: Partial<
       WIDE_GRIP_LAT_PULLDOWN: "wide grip lat pulldown",
       SEATED_CABLE_ROW: "seated cable row",
       SEATED_MACHINE_ROW: "seated machine row",
+      SINGLE_ARM_LAT_PULLDOWN: "single arm lat pulldown",
       VERTICAL_TRACTION: "vertical traction",
       DEADLIFT: "deadlift",
       PULL_UP: "pull up",
