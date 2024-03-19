@@ -139,7 +139,7 @@ const AveragesInformation: FC<{ label: string }> = ({ label }) => {
             set {averages.setIndex + 1} averages:  <span className="font-bold">{averages.weight} lbs, {averages.repititions} reps</span> (past {DATE_RANGE_FOR_AVERAGE_WEIGHT_AND_REPS_IN_WEEKS} weeks)
           </p>
           <p className="opacity-50">
-            ^when <span className="">{label}</span> is your exercise #{averages.workoutIndex + 1} of the day:
+            ^when <span className="">{label}</span> is your exercise #{averages.workoutIndex + 1} of the day
           </p>
         </div>
       ) : <>
