@@ -132,7 +132,7 @@ const AveragesInformation: FC<{ label: string }> = ({ label }) => {
   const averages = useGetProgressiveOverloadPrediction(label);
 
   return (
-    <div className="flex flex-col opacity-75 text-black text-sm">
+    <div className="flex flex-col opacity-75 text-black text-sm justify-center">
       {averages?.predictable ? (
         <div className="flex-col">
           <p>
@@ -237,7 +237,7 @@ export const WorkoutForm: FC = () => {
           />
         </div>
       </div>
-      <div className="w-full flex justify-between mt-5">
+      <div className="w-full flex justify-between items-center mt-5 gap-3">
         <AveragesInformation label={label} />
 
         <Button
