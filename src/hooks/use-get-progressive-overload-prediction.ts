@@ -6,7 +6,7 @@ import { queryClient } from "@/lib/react-query";
 import { DATE_RANGE_FOR_AVERAGE_WEIGHT_AND_REPS_IN_WEEKS } from "@/consts";
 import { groupBy } from "@/util/group-by";
 
-type Prediction = {
+export type Prediction = {
   weight: number | undefined;
   repititions: number | undefined;
   setIndex: number;

@@ -25,7 +25,7 @@ import {
   useCreateWorkout,
 } from "@/features/workout";
 import { WorkoutLabels } from "@/types";
-import { useGetProgressiveOverloadPrediction } from "@/hooks/use-get-progressive-overload-prediction";
+import { Prediction, useGetProgressiveOverloadPrediction } from "@/hooks/use-get-progressive-overload-prediction";
 import { DATE_RANGE_FOR_AVERAGE_WEIGHT_AND_REPS_IN_WEEKS } from "@/consts";
 
 type FormValues = {
@@ -127,10 +127,7 @@ const LabelDropDownMenu: FC<{
   );
 };
 
-const AveragesInformation: FC<{ label: string }> = ({ label }) => {
-  const { isFetching: averagesAreFetching } = useContext(WorkoutDataContext);
-  const averages = useGetProgressiveOverloadPrediction(label);
-
+const AveragesInformation: FC<{ label: string, averages: Prediction, averagesAreFetching: boolean }> = ({ label, averages, averagesAreFetching }) => {
   return (
     <div className="flex flex-col opacity-75 text-black text-sm justify-center">
       {averages?.predictable ? (
@@ -174,15 +171,24 @@ export const WorkoutForm: FC = () => {
     },
   });
 
+  const label = getValues()?.label;
+  const averages = useGetProgressiveOverloadPrediction(label);
+
+  useEffect(() => {
+    console.log("avg", averages)
+    if (averages)
+      reset({
+        weight: averages.weight ?? "",
+        label: label,
+      });
+  }, [averages, reset]);
+
   useEffect(() => {
     reset({
       // @ts-ignore
       label: Object.values(Object.values(WorkoutLabels[type])[0])[0] as string,
     });
   }, [type, reset]);
-
-  const label = getValues()?.label;
-
   const createWorkoutMutation = useCreateWorkout(type);
 
   const onSubmit = handleSubmit(async (data) => {
@@ -238,7 +244,7 @@ export const WorkoutForm: FC = () => {
         </div>
       </div>
       <div className="w-full flex justify-between items-center mt-5 gap-3">
-        <AveragesInformation label={label} />
+        <AveragesInformation label={label} averages={averages} averagesAreFetching />
 
         <Button
           disabled={createWorkoutMutation.isPending}
