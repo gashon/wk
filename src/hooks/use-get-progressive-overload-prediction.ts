@@ -109,7 +109,7 @@ const averageWeightWithinTimeRange = ({
 
 //setIndex and workoutIndex
 const analyzeTodaysWorkout = (workoutLabel: string, type: Days) => {
-  const workouts = queryClient.getQueryData<Workout[]>(["workouts", type, undefined, undefined]);
+  const workouts = queryClient.getQueryData<{data: Workout[]}>(["workouts", type, undefined, undefined]);
 
   if (!workouts?.data) return { setIndex: 0, workoutIndex: 0 };
 
