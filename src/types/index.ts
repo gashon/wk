@@ -94,14 +94,14 @@ export const WorkoutLabels: Partial<
   },
   [Days.LEGS]: {
     quads: {
+      LEG_PRESS: "leg press",
+      LEG_EXTENSION: "leg extension",
       BULGARIAN_SPLIT_SQUAT: "bulgarian split squat",
       BARBELL_SQUAT: "barbell squat",
       GOBLET_SQUAT: "goblet squat",
       DUMBBELL_SQUAT: "dumbbell squat",
       DUMBBELL_LUNGES: "dumbbell lunges",
-      DUMBBELL_STEP_UPS: "dumbbell step ups",
-      LEG_PRESS: "leg press",
-      LEG_EXTENSION: "leg extension",
+      DUMBBELL_STEP_UPS: "dumbbell step ups"
     },
     hamstrings: {
       DUMBBELL_DEADLIFT: "dumbbell deadlift",
@@ -174,8 +174,8 @@ export type WeightDeleteResponse = { message: string };
 
 export type SnakeToCamelCase<S extends string> =
   S extends `${infer T}_${infer U}`
-    ? `${T}${Capitalize<SnakeToCamelCase<U>>}`
-    : S;
+  ? `${T}${Capitalize<SnakeToCamelCase<U>>}`
+  : S;
 
 export type ConvertSnakeToCamelCase<T> = {
   [K in keyof T as SnakeToCamelCase<K & string>]: T[K];

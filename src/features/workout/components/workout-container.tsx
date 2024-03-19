@@ -40,6 +40,7 @@ export const WorkoutContainer: FC = () => {
     >
       <WorkoutDataContext.Provider
         value={{
+          workoutHistory: data?.data,
           workoutsGroupedByDate: data?.data
             ? groupBy("created_at_date_string", data.data)
             : {},

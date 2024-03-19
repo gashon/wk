@@ -11,3 +11,5 @@ export const PUSH_PULL_LEG_SCHEDULE: WorkoutSchedule = {
   [WeekDays.Saturday]: Days.LEGS,
   [WeekDays.Sunday]: Days.PUSH,
 };
+
+export const DATE_RANGE_FOR_AVERAGE_WEIGHT_AND_REPS_IN_WEEKS = 3;

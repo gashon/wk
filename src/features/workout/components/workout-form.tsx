@@ -21,9 +21,12 @@ import { Input } from "@/components/ui/input";
 import {
   DayContext,
   DayDropDownMenu,
+  WorkoutDataContext,
   useCreateWorkout,
 } from "@/features/workout";
 import { WorkoutLabels } from "@/types";
+import { useGetProgressiveOverloadPrediction } from "@/hooks/use-get-progressive-overload-prediction";
+import { DATE_RANGE_FOR_AVERAGE_WEIGHT_AND_REPS_IN_WEEKS } from "@/consts";
 
 type FormValues = {
   label: string;
@@ -126,6 +129,7 @@ const LabelDropDownMenu: FC<{
 
 export const WorkoutForm: FC = () => {
   const { type } = useContext(DayContext);
+  const { isFetching: averagesAreFetching } = useContext(WorkoutDataContext);
 
   const {
     formState: { errors },
@@ -151,6 +155,9 @@ export const WorkoutForm: FC = () => {
       label: Object.values(Object.values(WorkoutLabels[type])[0])[0] as string,
     });
   }, [type, reset]);
+
+  const label = getValues()?.label;
+  const averages = useGetProgressiveOverloadPrediction(label);
 
   const createWorkoutMutation = useCreateWorkout(type);
 
@@ -192,12 +199,8 @@ export const WorkoutForm: FC = () => {
               {...register("repititions")}
               placeholder="reps"
             />
-            {errors.repititions && (
-              <p className="text-red-800 opacity-75 text-sm ">
-                {errors.repititions.message}
-              </p>
-            )}
-          </div>
+
+                      </div>
 
           <LabelDropDownMenu
             watch={watch}
@@ -206,7 +209,31 @@ export const WorkoutForm: FC = () => {
           />
         </div>
       </div>
-      <div className="w-full flex justify-end mt-5">
+      <div className="w-full flex justify-between mt-5">
+        <div className="flex flex-col opacity-75 text-black text-sm">
+              {averages?.predictable ? (
+                <div className="flex-col">
+                  <p>
+                    set {averages.setIndex + 1} averages:  <span className="font-bold">{averages.weight} lbs, {averages.repititions} reps</span> (past {DATE_RANGE_FOR_AVERAGE_WEIGHT_AND_REPS_IN_WEEKS} weeks)
+                  </p>
+                  <p className="opacity-50">
+                    ^when <span className="">{label}</span> is your exercise #{averages.workoutIndex + 1} of the day:
+                  </p>
+                </div>
+
+              ) : <>
+                {!averagesAreFetching && <p>
+                  no {label} averages available for set {averages.setIndex + 1}
+                </p>
+                }
+              </>}
+              {errors.repititions && (
+                <p className="text-red-800 opacity-75 text-sm ">
+                  {errors.repititions.message}
+                </p>
+              )}
+            </div>
+
         <Button
           disabled={createWorkoutMutation.isPending}
           type="submit"

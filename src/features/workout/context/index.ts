@@ -7,13 +7,15 @@ export const DayContext = createContext<{
   setType: (val: Days) => undefined;
 }>({
   type: getTrainingGroupFromSchedule(),
-  setType: () => {}, //noop init func
+  setType: () => { }, //noop init func
 });
 
 export const WorkoutDataContext = createContext<{
+  workoutHistory: Workout[] | undefined;
   workoutsGroupedByDate: Record<string, Workout[]>;
   isFetching: boolean;
 }>({
+  workoutHistory: [],
   workoutsGroupedByDate: {},
   isFetching: false,
 });
