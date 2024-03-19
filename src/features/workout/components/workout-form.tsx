@@ -127,9 +127,34 @@ const LabelDropDownMenu: FC<{
   );
 };
 
+const AveragesInformation: FC<{ label: string }> = ({ label }) => {
+  const { isFetching: averagesAreFetching } = useContext(WorkoutDataContext);
+  const averages = useGetProgressiveOverloadPrediction(label);
+
+  return (
+    <div className="flex flex-col opacity-75 text-black text-sm">
+      {averages?.predictable ? (
+        <div className="flex-col">
+          <p>
+            set {averages.setIndex + 1} averages:  <span className="font-bold">{averages.weight} lbs, {averages.repititions} reps</span> (past {DATE_RANGE_FOR_AVERAGE_WEIGHT_AND_REPS_IN_WEEKS} weeks)
+          </p>
+          <p className="opacity-50">
+            ^when <span className="">{label}</span> is your exercise #{averages.workoutIndex + 1} of the day:
+          </p>
+        </div>
+      ) : <>
+        {!averagesAreFetching && <p>
+          no {label} averages available for set {averages.setIndex + 1}
+        </p>
+        }
+      </>}
+    </div>
+
+  )
+}
+
 export const WorkoutForm: FC = () => {
   const { type } = useContext(DayContext);
-  const { isFetching: averagesAreFetching } = useContext(WorkoutDataContext);
 
   const {
     formState: { errors },
@@ -157,7 +182,6 @@ export const WorkoutForm: FC = () => {
   }, [type, reset]);
 
   const label = getValues()?.label;
-  const averages = useGetProgressiveOverloadPrediction(label);
 
   const createWorkoutMutation = useCreateWorkout(type);
 
@@ -199,8 +223,12 @@ export const WorkoutForm: FC = () => {
               {...register("repititions")}
               placeholder="reps"
             />
-
-                      </div>
+            {errors.repititions && (
+              <p className="text-red-800 opacity-75 text-sm ">
+                {errors.repititions.message}
+              </p>
+            )}
+          </div>
 
           <LabelDropDownMenu
             watch={watch}
@@ -210,29 +238,7 @@ export const WorkoutForm: FC = () => {
         </div>
       </div>
       <div className="w-full flex justify-between mt-5">
-        <div className="flex flex-col opacity-75 text-black text-sm">
-              {averages?.predictable ? (
-                <div className="flex-col">
-                  <p>
-                    set {averages.setIndex + 1} averages:  <span className="font-bold">{averages.weight} lbs, {averages.repititions} reps</span> (past {DATE_RANGE_FOR_AVERAGE_WEIGHT_AND_REPS_IN_WEEKS} weeks)
-                  </p>
-                  <p className="opacity-50">
-                    ^when <span className="">{label}</span> is your exercise #{averages.workoutIndex + 1} of the day:
-                  </p>
-                </div>
-
-              ) : <>
-                {!averagesAreFetching && <p>
-                  no {label} averages available for set {averages.setIndex + 1}
-                </p>
-                }
-              </>}
-              {errors.repititions && (
-                <p className="text-red-800 opacity-75 text-sm ">
-                  {errors.repititions.message}
-                </p>
-              )}
-            </div>
+        <AveragesInformation label={label} />
 
         <Button
           disabled={createWorkoutMutation.isPending}
