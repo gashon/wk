@@ -178,7 +178,7 @@ export const WorkoutForm: FC = () => {
   useEffect(() => {
     if (stats)
       reset({
-        weight: stats.mostFrequentWeight ?? null,
+        weight: stats.mostFrequentWeight === 0 ? "" : stats.mostFrequentWeight,
         label: label,
       });
   }, [stats, reset]);
