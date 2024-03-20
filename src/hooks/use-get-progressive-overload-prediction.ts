@@ -12,6 +12,7 @@ export type Prediction = {
   setIndex: number;
   workoutIndex: number;
   predictable: boolean;
+  mostFrequentWeight: number;
 }
 
 type WorkoutHistoryRange = {
@@ -99,12 +100,28 @@ const averageWeightWithinTimeRange = ({
     return acc;
   }, { weight: 0, repititions: 0 })
 
+  const weightFreq = workoutData.reduce((acc, { weight }) => { 
+    if (!acc[weight]) {
+      acc[weight] = 0;
+    }
+    acc[weight] += 1;
+    return acc;
+  }
+  , {} as Record<string, number>)
+  const mostFrequentWeight = Object.keys(weightFreq).reduce((a, b) => {
+    // if they are equal, return the larger weight
+    if (weightFreq[a] === weightFreq[b]) 
+      return parseFloat(a) > parseFloat(b) ? a : b;
+    
+    return weightFreq[a] > weightFreq[b] ? a : b;
+  });
+
   const average = {
     weight: Math.ceil(sum.weight / workoutData.length),
     repititions: Math.ceil(sum.repititions / workoutData.length)
   }
 
-  return { ...average, hasData: workoutData.length > 0 };
+  return { ...average, hasData: workoutData.length > 0, mostFrequentWeight: parseFloat(mostFrequentWeight) };
 }
 
 //setIndex and workoutIndex
@@ -159,7 +176,7 @@ export const useGetProgressiveOverloadPrediction = (workout: string): Prediction
 
     const { setIndex, workoutIndex } = analyzeTodaysWorkout(workout, type);
 
-    const averages = averageWeightWithinTimeRange({
+    const stats = averageWeightWithinTimeRange({
       workoutLabel: workout,
       workoutsGroupedByDate: workoutsGroupedByDate,
       setIndex: setIndex, // get average for the next set
@@ -168,12 +185,12 @@ export const useGetProgressiveOverloadPrediction = (workout: string): Prediction
       endRange
     })
 
-    if (!averages.hasData) {
+    if (!stats.hasData) {
       setPrediction({...initialPrediction, setIndex, workoutIndex})
       return;
     }
 
-    setPrediction({ ...averages, setIndex: setIndex, workoutIndex, predictable: true })
+    setPrediction({ ...stats, setIndex: setIndex, workoutIndex, predictable: true })
   }, [context, workout, type])
 
   return prediction

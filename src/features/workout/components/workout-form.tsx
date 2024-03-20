@@ -127,21 +127,21 @@ const LabelDropDownMenu: FC<{
   );
 };
 
-const AveragesInformation: FC<{ label: string, averages: Prediction, averagesAreFetching: boolean }> = ({ label, averages, averagesAreFetching }) => {
+const AveragesInformation: FC<{ label: string, stats: Prediction, averagesAreFetching: boolean }> = ({ label, stats, averagesAreFetching }) => {
   return (
     <div className="flex flex-col opacity-75 text-black text-sm justify-center">
-      {averages?.predictable ? (
+      {stats?.predictable ? (
         <div className="flex-col">
           <p>
-            set {averages.setIndex + 1} averages:  <span className="font-bold">{averages.weight} lbs, {averages.repititions} reps</span> (past {DATE_RANGE_FOR_AVERAGE_WEIGHT_AND_REPS_IN_WEEKS} weeks)
+            set {stats.setIndex + 1} averages:  <span className="font-bold">{stats.weight} lbs, {stats.repititions} reps</span> (past {DATE_RANGE_FOR_AVERAGE_WEIGHT_AND_REPS_IN_WEEKS} weeks)
           </p>
           <p className="opacity-50">
-            ^when <span className="">{label}</span> is your exercise #{averages.workoutIndex + 1} of the day
+            ^when <span className="">{label}</span> is your exercise #{stats.workoutIndex + 1} of the day
           </p>
         </div>
       ) : <>
         {!averagesAreFetching && <p>
-          no {label} averages available for set {averages.setIndex + 1}
+          no {label} averages available for set {stats.setIndex + 1}
         </p>
         }
       </>}
@@ -152,6 +152,7 @@ const AveragesInformation: FC<{ label: string, averages: Prediction, averagesAre
 
 export const WorkoutForm: FC = () => {
   const { type } = useContext(DayContext);
+  const {isFetching: averagesAreFetching} = useContext(WorkoutDataContext);
 
   const {
     formState: { errors },
@@ -172,16 +173,15 @@ export const WorkoutForm: FC = () => {
   });
 
   const label = getValues()?.label;
-  const averages = useGetProgressiveOverloadPrediction(label);
+  const stats = useGetProgressiveOverloadPrediction(label);
 
   useEffect(() => {
-    console.log("avg", averages)
-    if (averages)
+    if (stats)
       reset({
-        weight: averages.weight ?? "",
+        weight: stats.mostFrequentWeight ?? null,
         label: label,
       });
-  }, [averages, reset]);
+  }, [stats, reset]);
 
   useEffect(() => {
     reset({
@@ -244,7 +244,7 @@ export const WorkoutForm: FC = () => {
         </div>
       </div>
       <div className="w-full flex justify-between items-center mt-5 gap-3">
-        <AveragesInformation label={label} averages={averages} averagesAreFetching />
+        <AveragesInformation label={label} stats={stats} averagesAreFetching={averagesAreFetching}/>
 
         <Button
           disabled={createWorkoutMutation.isPending}
