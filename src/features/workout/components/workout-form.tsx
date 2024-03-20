@@ -152,7 +152,7 @@ const AveragesInformation: FC<{ label: string, stats: Prediction, averagesAreFet
 
 export const WorkoutForm: FC = () => {
   const { type } = useContext(DayContext);
-  const {isFetching: averagesAreFetching} = useContext(WorkoutDataContext);
+  const { isFetching: averagesAreFetching } = useContext(WorkoutDataContext);
 
   const {
     formState: { errors },
@@ -178,7 +178,10 @@ export const WorkoutForm: FC = () => {
   useEffect(() => {
     if (stats)
       reset({
-        weight: stats.mostFrequentWeight === 0 ? "" : stats.mostFrequentWeight,
+        // @ts-ignore
+        weight: stats.mostFrequentWeight === 0 ?
+          null :
+          stats.mostFrequentWeight,
         label: label,
       });
   }, [stats, reset]);
@@ -244,7 +247,7 @@ export const WorkoutForm: FC = () => {
         </div>
       </div>
       <div className="w-full flex justify-between items-center mt-5 gap-3">
-        <AveragesInformation label={label} stats={stats} averagesAreFetching={averagesAreFetching}/>
+        <AveragesInformation label={label} stats={stats} averagesAreFetching={averagesAreFetching} />
 
         <Button
           disabled={createWorkoutMutation.isPending}
