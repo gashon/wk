@@ -29,7 +29,8 @@ const initialPrediction: Prediction = {
   repititions: undefined,
   setIndex: 0,
   workoutIndex: 0,
-  predictable: false
+  predictable: false,
+  mostFrequentWeight: 0
 }
 
 const isWithinRange = (date: Date, startRange: Date, endRange: Date) => {
