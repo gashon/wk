@@ -92,6 +92,8 @@ const averageWeightWithinTimeRange = ({
     workoutLabel, workoutsGroupedByDate, startRange, endRange, setIndex, workoutIndex
   })
 
+  if(workoutData.length === 0) return { weight: 0, repititions: 0, hasData: false, mostFrequentWeight: 0 };
+
   const sum = workoutData.reduce((acc, { weight, repititions }) => {
     // @ts-ignore stored as string
     acc["weight"] += parseFloat(weight);
