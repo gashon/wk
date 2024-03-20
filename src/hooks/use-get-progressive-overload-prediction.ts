@@ -13,6 +13,7 @@ export type Prediction = {
   workoutIndex: number;
   predictable: boolean;
   mostFrequentWeight: number;
+    hasData: boolean
 }
 
 type WorkoutHistoryRange = {
@@ -30,7 +31,8 @@ const initialPrediction: Prediction = {
   setIndex: 0,
   workoutIndex: 0,
   predictable: false,
-  mostFrequentWeight: 0
+  mostFrequentWeight: 0,
+  hasData: false
 }
 
 const isWithinRange = (date: Date, startRange: Date, endRange: Date) => {

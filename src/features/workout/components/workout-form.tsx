@@ -140,7 +140,7 @@ const AveragesInformation: FC<{ label: string, stats: Prediction, averagesAreFet
           </p>
         </div>
       ) : <>
-        {!averagesAreFetching && <p>
+        {!averagesAreFetching && stats.hasData && <p>
           no {label} averages available for set {stats.setIndex + 1}
         </p>
         }

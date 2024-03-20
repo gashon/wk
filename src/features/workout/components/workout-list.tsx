@@ -21,6 +21,10 @@ export const WorkoutList: FC = () => {
 
   return (
     <div>
+      {Object.entries(workoutsGroupedByDate).length === 0 && (
+        <p className="opacity-50">No workouts yet...</p>
+      )}
+
       {Object.entries(workoutsGroupedByDate).map(([date, workouts], i) => {
         const dataBeforeDate = Object.keys(
           workoutsGroupedByDate,
