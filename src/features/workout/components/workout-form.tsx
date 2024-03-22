@@ -176,7 +176,10 @@ export const WorkoutForm: FC = () => {
   const stats = useGetProgressiveOverloadPrediction(label);
 
   useEffect(() => {
-    if (stats)
+    if (stats) {
+      const weightIsAlreadySet = getValues().weight;
+      if (weightIsAlreadySet) return;
+
       reset({
         // @ts-ignore
         weight: stats.mostFrequentWeight === 0 ?
@@ -184,6 +187,8 @@ export const WorkoutForm: FC = () => {
           stats.mostFrequentWeight,
         label: label,
       });
+
+    }
   }, [stats, reset]);
 
   useEffect(() => {
