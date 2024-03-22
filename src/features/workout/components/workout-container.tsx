@@ -40,7 +40,11 @@ const TimeSinceLastWorkout: FC = () => {
       }
 
       interval = setInterval(() => {
-        if(!latestWorkout) return setTimeSinceLastWorkout(undefined) && clearInterval(interval);
+        if(!latestWorkout) {
+          setTimeSinceLastWorkout(undefined);
+          clearInterval(interval);
+          return 
+        }
         const currentTime = new Date().getTime();
         const lastWorkoutTime = new Date(latestWorkout.created_at_timestamp).getTime();
         const timeDifference = (currentTime - lastWorkoutTime) / 1000;
