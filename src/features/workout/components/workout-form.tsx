@@ -192,6 +192,19 @@ export const WorkoutForm: FC = () => {
   }, [stats, reset]);
 
   useEffect(() => {
+    if(stats) {
+       reset({
+        // @ts-ignore
+        weight: stats.mostFrequentWeight === 0 ?
+          null :
+          stats.mostFrequentWeight,
+        label: label,
+      });
+    }
+
+  }, [label, stats])
+
+  useEffect(() => {
     reset({
       // @ts-ignore
       label: Object.values(Object.values(WorkoutLabels[type])[0])[0] as string,
